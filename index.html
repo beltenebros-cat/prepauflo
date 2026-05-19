@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrePAU Lengua · 2º Bachillerato</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F4EF;--surface:#FFF;--surface2:#F0EDE6;
+  --ink:#1A1714;--ink2:#6B6560;--ink3:#9E9890;
+  --accent:#2D6A4F;--al:#D8EDDF;--ad:#1B4332;
+  --danger:#991B1B;--dl:#FEE2E2;
+  --border:rgba(26,23,20,.1);--border2:rgba(26,23,20,.18);
+  --r:12px;--rs:8px;
+}
+
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.6}
+.layout{display:flex;min-height:100vh}
+
+/* ── SIDEBAR ── */
+.sidebar{width:268px;min-width:268px;background:var(--ink);color:#fff;display:flex;flex-direction:column;padding:1.5rem 1.25rem;position:sticky;top:0;height:100vh;overflow-y:auto}
+.logo{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;margin-bottom:2px}
+.logo span{color:#74C69D}
+.sub{font-size:10.5px;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.25rem;font-weight:300}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:1.1rem}
+.stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:var(--rs);padding:8px 10px}
+.stat .num{font-size:20px;font-weight:500;color:#74C69D;display:block}
+.stat .lbl{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.06em}
+.pw{margin-bottom:1.1rem}
+.pl{display:flex;justify-content:space-between;font-size:10.5px;color:rgba(255,255,255,.35);margin-bottom:4px}
+.pt{background:rgba(255,255,255,.1);border-radius:99px;height:3px;overflow:hidden}
+.pf{height:100%;background:#74C69D;border-radius:99px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.nav-label{font-size:9.5px;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.1em;padding:0 4px;margin:7px 0 2px}
+.nb{display:flex;align-items:center;gap:7px;width:100%;padding:6px 9px;border-radius:var(--rs);border:none;background:transparent;color:rgba(255,255,255,.52);font-size:12.5px;font-family:'DM Sans',sans-serif;cursor:pointer;text-align:left;transition:all .15s;margin-bottom:1px}
+.nb:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.9)}
+.nb.active{background:rgba(116,198,157,.18);color:#74C69D;font-weight:500}
+.nb .dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+.nb.active .dot{background:#74C69D}
+.nb .cnt{margin-left:auto;background:#74C69D;color:var(--ad);border-radius:99px;font-size:9.5px;font-weight:600;padding:1px 5px;display:none}
+.nb .cnt.show{display:inline}
+.nav-sep{font-size:9px;color:rgba(255,255,255,.22);text-transform:uppercase;letter-spacing:.12em;padding:10px 4px 2px;margin-top:4px;border-top:1px solid rgba(255,255,255,.07)}
+.nav-sep:first-child{border-top:none;margin-top:0;padding-top:0}
+
+/* ── TEXTO LITERARIO (comprensión lectora) ── */
+.text-card{background:#FAFAF8;border:1px solid var(--border);border-radius:var(--r);padding:1.5rem 1.75rem;margin-bottom:1rem;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.text-card-label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:500;margin-bottom:.75rem;display:flex;align-items:center;gap:7px}
+.text-card-label::before{content:"";display:inline-block;width:16px;height:2px;background:var(--accent);border-radius:99px}
+.text-card-body{font-size:15px;line-height:1.85;color:var(--ink);border-left:3px solid #b8dfc8;padding-left:1.1rem;margin-bottom:.85rem}.text-card-body p{margin-bottom:.9rem}.text-card-body p:last-child{margin-bottom:0}
+.text-card-author{font-size:12.5px;color:var(--ink3);font-style:italic;text-align:right}
+.text-toggle-btn{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--accent);background:none;border:none;cursor:pointer;font-family:inherit;padding:0;margin-bottom:.5rem}
+.text-toggle-btn svg{transition:transform .2s}
+.text-toggle-btn.collapsed svg{transform:rotate(-90deg)}
+
+/* ── VIEW TOGGLE ── */
+.view-toggle{display:flex;gap:4px;background:var(--surface2);border-radius:var(--rs);padding:3px}
+.vt-btn{padding:5px 12px;border-radius:6px;border:none;background:transparent;font-size:12.5px;font-family:'DM Sans',sans-serif;color:var(--ink2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
+.vt-btn.active{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08);font-weight:500}
+.vt-btn svg{flex-shrink:0}
+
+/* ── LIST VIEW ── */
+.list-view .ex-card{margin-bottom:.6rem;padding:1.1rem 1.4rem}
+.list-view .ex-card.lv-collapsed .ex-prompt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:0}
+.list-view .ex-card.lv-collapsed .ex-quote,.list-view .ex-card.lv-collapsed .ol,.list-view .ex-card.lv-collapsed .sent-opt,.list-view .ex-card.lv-collapsed textarea,.list-view .ex-card.lv-collapsed .btn-row,.list-view .ex-card.lv-collapsed .fb,.list-view .ex-card.lv-collapsed .modelo-box,.list-view .ex-card.lv-collapsed .expl,.list-view .ex-card.lv-collapsed .fi,.list-view .ex-card.lv-collapsed .ji,.list-view .ex-card.lv-collapsed .jinput,.list-view .ex-card.lv-collapsed .fo{display:none}
+.list-view .ex-card .lv-expand-btn{display:none}
+.list-view .ex-card.lv-collapsed .lv-expand-btn{display:inline-flex;align-items:center;gap:4px;margin-top:.5rem;font-size:12px;color:var(--accent);border:none;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;padding:0}
+.list-view .ex-card .lv-status{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:99px;margin-left:auto}
+.lv-status.done-ok{background:var(--al);color:var(--ad)}
+.lv-status.done-no{background:#FEE2E2;color:#991B1B}
+.lv-status.pending{background:var(--surface2);color:var(--ink3)}
+.ex-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.ex-meta-row .ex-meta{margin-bottom:0}
+.sf{margin-top:auto;padding-top:.85rem;border-top:1px solid rgba(255,255,255,.08);font-size:10.5px;color:rgba(255,255,255,.2)}
+
+/* ── MAIN ── */
+.main{flex:1;padding:2.5rem 3rem;max-width:780px}
+.ph{margin-bottom:1.75rem;animation:fu .35s ease both}
+.ey{font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:500;margin-bottom:4px}
+.pt2{font-family:'DM Serif Display',serif;font-size:28px;line-height:1.15;margin-bottom:5px}
+.pd{font-size:14px;color:var(--ink2);font-weight:300}
+.ex-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.4rem 1.65rem;margin-bottom:.85rem;box-shadow:0 1px 3px rgba(0,0,0,.06);animation:fu .3s ease both}
+@keyframes fu{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.ex-meta{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.ex-meta::before{content:'';display:inline-block;width:16px;height:2px;background:var(--accent);border-radius:99px}
+.ex-prompt{font-size:15px;line-height:1.65;margin-bottom:1rem}
+.ex-quote{background:var(--surface2);border-left:3px solid var(--accent);border-radius:0 var(--rs) var(--rs) 0;padding:.8rem 1rem;font-size:13.5px;color:var(--ink2);margin-bottom:1rem;line-height:1.7;font-style:italic;white-space:pre-line}
+
+/* ── BUTTONS ── */
+.btn-row{display:flex;gap:7px;margin-top:.75rem;align-items:center;flex-wrap:wrap}
+.btn{padding:7px 16px;border-radius:var(--rs);font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;border:none;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.bp{background:var(--accent);color:#fff}.bp:hover:not(:disabled){background:var(--ad)}.bp:disabled{opacity:.4;cursor:not-allowed}
+.bg2{background:transparent;color:var(--ink2);border:1px solid var(--border2)}.bg2:hover{background:var(--surface2);color:var(--ink)}.bg2:disabled{opacity:.35;cursor:not-allowed}
+
+/* ── TEXTAREA (expresión escrita) ── */
+textarea{width:100%;min-height:120px;resize:vertical;border:1.5px solid var(--border2);border-radius:var(--rs);padding:.75rem .85rem;font-size:13.5px;font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--bg);line-height:1.65;transition:border-color .15s;outline:none}
+textarea:focus{border-color:var(--accent);background:#fff}
+textarea[readonly]{opacity:.75;cursor:default}
+textarea::placeholder{color:var(--ink3)}
+
+/* ── MODELO SOLUCIÓN (expresión escrita) ── */
+.modelo-box{margin-top:.9rem;border:1px solid #A7D7BB;border-radius:var(--rs);overflow:hidden}
+.modelo-head{display:flex;align-items:center;justify-content:space-between;padding:7px 13px;background:#EFF8F3;border-bottom:1px solid #A7D7BB;font-size:10.5px;font-weight:500;color:var(--ad);text-transform:uppercase;letter-spacing:.07em;cursor:pointer;user-select:none}
+.modelo-head svg{transition:transform .2s}
+.modelo-head.open svg{transform:rotate(180deg)}
+.modelo-body{display:none;padding:.9rem 1.05rem;font-size:13.5px;line-height:1.75;background:#fff;color:var(--ink);white-space:pre-line}
+.modelo-body.show{display:block}
+.modelo-pending{padding:.9rem 1.05rem;font-size:13px;color:var(--ink3);font-style:italic;background:#fff}
+
+/* ── AI FEEDBACK (expresión escrita) ── */
+.fb{margin-top:.85rem;border:1px solid var(--border);border-radius:var(--rs);overflow:hidden}
+.fbh{display:flex;align-items:center;gap:6px;padding:7px 13px;background:var(--surface2);border-bottom:1px solid var(--border);font-size:10.5px;font-weight:500;color:var(--ink2);text-transform:uppercase;letter-spacing:.07em}
+.fbd{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.fbd.loading{animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.fbb{padding:.9rem 1.05rem;font-size:13.5px;line-height:1.75;background:#fff}
+.fbb.loading{color:var(--ink3);font-style:italic}
+
+/* ── MCQ (tipo test) ── */
+.ol{display:flex;flex-direction:column;gap:7px;margin-bottom:.8rem}
+.ob{text-align:left;padding:10px 13px;border-radius:var(--rs);border:1.5px solid var(--border2);background:var(--bg);font-size:14px;color:var(--ink);cursor:pointer;font-family:'DM Sans',sans-serif;line-height:1.5;transition:all .15s;display:flex;gap:9px;align-items:flex-start}
+.ob .ltr{font-weight:600;font-size:11.5px;min-width:19px;height:19px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;margin-top:1px;flex-shrink:0;color:var(--ink2);transition:all .15s}
+.ob:hover:not(:disabled){border-color:var(--accent);background:var(--al)}.ob:hover:not(:disabled) .ltr{background:var(--accent);color:#fff}
+.ob.correct{background:var(--al);border-color:var(--accent);color:var(--ad)}.ob.correct .ltr{background:var(--accent);color:#fff}
+.ob.wrong{background:var(--dl);border-color:#F87171;color:var(--danger)}.ob.wrong .ltr{background:#F87171;color:#fff}
+.ob:disabled{cursor:default}
+.expl{background:#EFF8F3;border:1px solid #A7D7BB;border-radius:var(--rs);padding:.8rem 1rem;font-size:13px;color:var(--ad);line-height:1.7;margin-top:.45rem}
+.expl strong{display:block;font-weight:500;margin-bottom:2px;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;opacity:.7}
+
+/* ── SENTENCE MCQ (reflexión: cada oración es opción) ── */
+.sent-opt{text-align:left;padding:11px 14px;border-radius:var(--rs);border:1.5px solid var(--border2);background:var(--bg);font-size:13.5px;color:var(--ink);cursor:pointer;font-family:'DM Sans',sans-serif;line-height:1.6;transition:all .15s;display:flex;gap:10px;align-items:flex-start;margin-bottom:7px;font-style:italic}
+.sent-opt .ltr{font-style:normal;font-weight:600;font-size:11.5px;min-width:19px;height:19px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;margin-top:2px;flex-shrink:0;color:var(--ink2);transition:all .15s}
+.sent-opt:hover:not(:disabled){border-color:var(--accent);background:var(--al)}.sent-opt:hover:not(:disabled) .ltr{background:var(--accent);color:#fff}
+.sent-opt.correct{background:var(--al);border-color:var(--accent);color:var(--ad)}.sent-opt.correct .ltr{background:var(--accent);color:#fff}
+.sent-opt.wrong{background:var(--dl);border-color:#F87171;color:var(--danger)}.sent-opt.wrong .ltr{background:#F87171;color:#fff}
+.sent-opt:disabled{cursor:default}
+
+/* ── FILL ── */
+.fi{background:var(--surface2);border-radius:var(--rs);padding:.75rem .9rem;margin-bottom:7px}
+.fs2{font-size:14px;margin-bottom:8px;line-height:1.6}
+.fo{display:flex;gap:6px;flex-wrap:wrap}
+.fo-btn{padding:4px 12px;border-radius:99px;border:1.5px solid var(--border2);background:var(--surface);font-size:12.5px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--ink);transition:all .15s}
+.fo-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);background:var(--al)}
+.fo-btn.correct{background:var(--al);border-color:var(--accent);color:var(--ad);font-weight:500}
+.fo-btn.wrong{background:var(--dl);border-color:#F87171;color:var(--danger)}
+.fo-btn:disabled{cursor:default}
+
+/* ── JOIN ── */
+.ji{background:var(--surface2);border-radius:var(--rs);padding:.75rem .9rem;margin-bottom:8px}
+.jp{font-size:13.5px;color:var(--ink2);margin-bottom:7px;line-height:1.6}
+.jinput{width:100%;border:1.5px solid var(--border2);border-radius:var(--rs);padding:.45rem .75rem;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--surface);outline:none;transition:border-color .15s}
+.jinput:focus{border-color:var(--accent)}
+
+/* ── NAV ── */
+.nr{display:flex;justify-content:space-between;align-items:center;margin-top:1.1rem}
+.ni{font-size:12px;color:var(--ink3)}
+
+/* ── HAMBURGER ── */
+.hamburger{display:none;position:fixed;top:1rem;left:1rem;z-index:200;background:var(--ink);border:none;border-radius:7px;width:37px;height:37px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.hamburger span{display:block;width:15px;height:1.5px;background:#fff;border-radius:99px}
+.ovl{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+@media(max-width:820px){
+  .hamburger{display:flex}.layout{flex-direction:column}
+  .sidebar{position:fixed;top:0;left:0;height:100vh;z-index:100;transform:translateX(-100%);transition:transform .3s ease}
+  .sidebar.open{transform:translateX(0)}.ovl.open{display:block}
+  .main{padding:1.1rem;padding-top:3.25rem;max-width:100%}.pt2{font-size:22px}
+}
+</style>
+</head>
+<body>
+
+<button class="hamburger" onclick="toggleSB()" aria-label="Menú"><span></span><span></span><span></span></button>
+<div class="ovl" id="ovl" onclick="toggleSB()"></div>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="logo">Pre<span>PAU</span></div>
+  <div class="sub">Lengua · 2º Bach · 24/25</div>
+  <div class="stat-row">
+    <div class="stat"><span class="num" id="s-done">0</span><span class="lbl">Hechos</span></div>
+    <div class="stat"><span class="num" id="s-ok">0</span><span class="lbl">Correctos</span></div>
+  </div>
+  <div class="pw">
+    <div class="pl"><span>Progreso</span><span id="s-pct">0%</span></div>
+    <div class="pt"><div class="pf" id="s-bar" style="width:0%"></div></div>
+  </div>
+  <div id="nav-c"></div>
+  <div class="sf">
+  Corrección IA · PrePAU Proa Escola 24/25
+  <button onclick="resetAllProgress()" style="display:block;margin-top:.6rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);border-radius:6px;padding:4px 10px;font-size:10px;font-family:inherit;cursor:pointer;width:100%;text-align:left;">↺ Borrar progreso</button>
+</div>
+</aside>
+<main class="main" id="main">
+  <div id="ph" class="ph"></div>
+  <div id="ea"></div>
+</main>
+</div>
+<script>
+const BLOCKS=[
+  {id:0,title:"Expresión escrita",      desc:"Registro, argumentación, corrección gramatical, modalidad y reescritura de textos."},
+  {id:1,title:"Pares mínimos",          desc:"Explica la diferencia gramatical entre cada par de oraciones."},
+  {id:2,title:"Análisis inverso",       desc:"Construye oraciones desde cero a partir de características gramaticales predefinidas: en lugar de analizar, creas."},
+  {id:3,title:"Funciones sintácticas",  desc:"Identifica la función de cada sintagma, analiza pronombres y relaciona sintagmas con sus funciones."},
+  {id:4,title:"La oración compuesta",   desc:"Tipos de subordinadas, modalidad oracional, comparación de estructuras y unión de oraciones."},
+  {id:5,title:"Saber literario",        desc:"Estilo directo e indirecto, reescritura objetiva, transformaciones de voz y ortografía."},
+  {id:6,title:"Léxico",                 desc:"Vocabulario: sinónimos, parónimos, registro formal y sustitución léxica."},
+  {id:7,title:"Morfología",             desc:"Jerarquías de formación, análisis morfológico, verdadero/falso y clasificación de procesos."},
+  {id:8,title:"Comprensión lectora",     desc:"Lee cada texto y responde las preguntas: resumen, estructura, recursos expresivos, léxico y análisis crítico."},
+];
+
+// ══════════════════════════════════════════════════════
+// EJERCICIOS
+// type: "open" | "mcq" | "sent-mcq" | "fill" | "paronyms" | "join"
+// Expresión escrita: campo `modelSolution` (null = pendiente)
+// ══════════════════════════════════════════════════════
+const EX=[
+
+// ── BLOQUE 0: Expresión escrita ───────────────────────────────────────────
+{block:0,type:"open",meta:"Registro · 1a",
+prompt:"Transforma este mensaje de chat en un correo formal dirigido a la universidad.",
+quote:"«Oye, quería saber si me podéis decir lo de la matrícula porque no me entero.»",
+placeholder:"",
+rubric:"Saludo formal, ausencia de tuteo, vocabulario elevado (matrícula, proceso de inscripción), cierre formal. Penaliza 'no me entero', 'lo de'.",
+modelSolution: null},
+
+{block:0,type:"open",meta:"Registro · 1c",
+prompt:"Transforma este mensaje en una carta formal para solicitar unas prácticas.",
+quote:"«Hola, quiero hacer unas prácticas con vosotros porque me mola bastante vuestro rollo.»",
+placeholder:"",
+rubric:"Eliminar 'mola' y 'rollo', usar 'solicitar / interés profesional / su empresa', motivación formal, despedida protocolaria.",
+modelSolution: null},
+
+{block:0,type:"open",meta:"Argumentación · 14",
+prompt:"Convierte el texto expositivo en argumentativo con tesis explícita sobre el cambio climático.",
+quote:"«El cambio climático es un fenómeno global que se refiere al aumento progresivo de la temperatura media del planeta...»",
+placeholder:"",
+rubric:"Tesis clara al inicio, ≥2 argumentos con conectores, contraargumento refutado, conclusión que retoma la tesis.",
+modelSolution: null},
+
+{block:0,type:"open",meta:"Argumentación · 15",
+prompt:"Convierte el texto expositivo sobre humanidades en argumentativo con posición explícita.",
+quote:"«Los estudios humanísticos son aquellos que se centran en el análisis de la cultura, el pensamiento y la expresión humana...»",
+placeholder:"",
+rubric:"Tesis explícita, argumentos con ejemplos (capacidad crítica, comunicación), contraargumento rebatido, conclusión con llamada a la acción.",
+modelSolution: null},
+
+{block:0,type:"open",meta:"Registro · 28",
+prompt:"Reescribe con registro y léxico adecuados para un artículo de opinión en un periódico.",
+quote:"«La gente compra un montón de cosas sin pensar y luego se queda sin dinero, lo cual es un lío bastante grande.»",
+placeholder:"",
+rubric:"'montón de cosas'→bienes, 'sin pensar'→de forma impulsiva, 'se queda sin dinero'→compromete su estabilidad económica, 'lío'→problema grave.",
+modelSolution: null},
+
+// ── BLOQUE 1: Corrección gramatical ──────────────────────────────────────
+{block:0,type:"open",meta:"Corrección · 3",
+prompt:"Detecta dos errores y explica la norma gramatical que los corrige.",
+quote:"«El alumnado entregaron el trabajo bastante tarde, a pesar de que habían tenido tiempo suficiente para prepararlo durante la semana.»",
+placeholder:"",
+rubric:"Error 1: 'entregaron'→'entregó'. 'Alumnado' colectivo singular. Error 2: 'habían tenido'→'había tenido'. Concordancia con núcleo colectivo."},
+
+{block:0,type:"open",meta:"Corrección · 5",
+prompt:"Detecta dos errores y explica la norma que los corrige.",
+quote:"«La pidieron que mantuviera discreción, porque podían haber muchas personas que no supieran el resultado.»",
+placeholder:"",
+rubric:"Error 1: 'La pidieron'→'Le pidieron'. 'Pedir' rige CI; 'la' es laísmo. Error 2: 'podían haber'→'podía haber'. 'Haber' existencial impersonal va en singular."},
+
+{block:0,type:"open",meta:"Corrección · 6",
+prompt:"Detecta dos errores y explica la norma que los corrige.",
+quote:"«Es una amiga que su madre, que era profe durante muchos años en el instituto del barrio, le tradució todas las páginas del texto en latín sin dificultad.»",
+placeholder:"",
+rubric:"Error 1: 'tradució'→'tradujo'. Verbo irregular. Error 2: 'que su madre'→'cuya madre'. Relativo posesivo 'cuyo/a'."},
+
+{block:0,type:"open",meta:"Corrección · 7",
+prompt:"Detecta dos errores y explica la norma que los corrige.",
+quote:"«Nos dijistes que no nos sentásemos detrás tuyo porque no se veía bien la pizarra desde ese lado del aula.»",
+placeholder:"",
+rubric:"Error 1: 'dijistes'→'dijiste'. Pret. indef. 2ª sg. sin -s. Error 2: 'detrás tuyo'→'detrás de ti'. Adverbios de lugar rigen 'de' + pronombre tónico."},
+
+// ── BLOQUE 2: Conectores ──────────────────────────────────────────────────
+{block:0,type:"fill",meta:"Conectores · 8",
+prompt:"Elige el conector más adecuado para cada oración.",
+items:[
+  {sentence:"No salió de casa ___ estaba enfermo.",         answer:"porque",   options:["porque","aunque","por lo tanto","si"]},
+  {sentence:"Estaba muy cansado, ___ se detuvo.",           answer:"así que",  options:["así que","pero","aunque","ya que"]},
+  {sentence:"No se fue a descansar, ___ ya había terminado.",answer:"puesto que",options:["puesto que","sin embargo","por eso","aunque"]},
+  {sentence:"Ha trabajado mucho, ___ ha conseguido buenos resultados.",answer:"por eso",options:["por eso","sin embargo","aunque","si"]},
+  {sentence:"Llegó tarde ___ había mucho tráfico.",         answer:"porque",   options:["porque","así que","aunque","por lo tanto"]},
+  {sentence:"Estaba cansado, ___ siguió trabajando.",       answer:"pero",     options:["pero","porque","así que","puesto que"]},
+  {sentence:"Corre más rápido ___ su hermano.",             answer:"que",      options:["que","como","aunque","si"]},
+  {sentence:"Te lo explico despacio, ___ lo entiendas mejor.",answer:"para que",options:["para que","porque","aunque","así que"]},
+]},
+
+{block:0,type:"open",meta:"Sustitución · 25",
+prompt:"Sustituye los conectores del texto por otros equivalentes sin alterar el significado.",
+quote:"«El uso de energías renovables ha aumentado en los últimos años porque existe una mayor conciencia medioambiental. Aunque la inversión inicial es elevada, los beneficios a largo plazo son considerables.»",
+placeholder:"",
+rubric:"'porque'→puesto que/dado que/ya que. 'Aunque'→si bien/aun cuando/a pesar de que. Penalizar cambio de relación lógica."},
+
+{block:0,type:"open",meta:"Sustitución · 26",
+prompt:"Sustituye los conectores del texto por otros equivalentes.",
+quote:"«El uso de dispositivos electrónicos puede ser beneficioso, ya que facilita el acceso a la información. Sin embargo, algunos consideran que distrae. Aun así, su uso puede ser positivo. Por ello, es necesario establecer normas claras.»",
+placeholder:"",
+rubric:"'ya que'→puesto que/dado que. 'Sin embargo'→no obstante/pero. 'Aun así'→con todo/de todas formas. 'Por ello'→por tanto/en consecuencia."},
+
+// ── BLOQUE 3: Reflexión lingüística (TIPO TEST — oraciones como opciones) ─
+
+// 3.1 Modalidad oracional
+{block:0,type:"sent-mcq",meta:"Modalidad · Interrogativa total",
+prompt:"¿Cuál de estas oraciones es una interrogativa directa total?",
+options:[
+  {text:"¿Cuándo llegaste?",          correct:false, expl:"Interrogativa parcial: contiene pronombre interrogativo «cuándo»."},
+  {text:"¿Llegaste ayer?",            correct:true,  expl:"Interrogativa total: no hay pronombre interrogativo, la respuesta es sí/no."},
+  {text:"¡Qué tarde llegaste!",       correct:false, expl:"Exclamativa, introducida por «qué» exclamativo."},
+  {text:"Quizás llegaras ayer.",      correct:false, expl:"Dubitativa con adverbio modal «quizás» + subjuntivo."},
+],
+explanation:"Las interrogativas totales no tienen pronombre interrogativo y admiten respuesta sí/no. Las parciales preguntan por un elemento concreto (cuándo, quién, cómo...)."},
+
+{block:0,type:"sent-mcq",meta:"Modalidad · Exclamativa",
+prompt:"¿Cuál de estas oraciones es exclamativa?",
+options:[
+  {text:"¿Qué calor hace?",           correct:false, expl:"Interrogativa parcial con «qué» interrogativo."},
+  {text:"Hace mucho calor.",          correct:false, expl:"Enunciativa afirmativa."},
+  {text:"¡Qué calor tengo!",          correct:true,  expl:"Exclamativa: marcada por entonación exclamativa y «qué» exclamativo + sustantivo."},
+  {text:"Ojалá haga calor.",          correct:false, expl:"Desiderativa con «ojalá» + subjuntivo."},
+],
+explanation:"Las exclamativas se caracterizan por entonación exclamativa y frecuentemente por «qué/cuánto/cómo» en función exclamativa, no interrogativa."},
+
+{block:0,type:"sent-mcq",meta:"Modalidad · Impersonal con se",
+prompt:"¿Cuál de estas oraciones contiene un «se» impersonal (sin sujeto gramatical)?",
+options:[
+  {text:"Se vendieron todos los libros.",   correct:false, expl:"Pasiva refleja: «todos los libros» es sujeto paciente con el que concuerda el verbo."},
+  {text:"Se está muy bien aquí.",           correct:true,  expl:"Impersonal con «se»: el verbo no concuerda con ningún SN; no hay sujeto gramatical."},
+  {text:"Se construyeron dos edificios.",   correct:false, expl:"Pasiva refleja: «dos edificios» es sujeto paciente."},
+  {text:"Se compró el piso.",               correct:false, expl:"Pasiva refleja o reflexiva; «el piso» puede funcionar como sujeto."},
+],
+explanation:"En las impersonales con «se», el verbo no tiene sujeto y va siempre en 3ª persona del singular. Las pasivas reflejas tienen un SN sujeto con el que concuerda el verbo."},
+
+{block:0,type:"sent-mcq",meta:"Modalidad · Dubitativa",
+prompt:"¿Cuál de estas oraciones es dubitativa?",
+options:[
+  {text:"No sé si vendrá mañana.",    correct:false, expl:"Interrogativa indirecta subordinada, no principal."},
+  {text:"Tal vez venga mañana.",      correct:true,  expl:"Dubitativa: adverbio modal «tal vez» + subjuntivo expresa probabilidad o duda."},
+  {text:"Vendrá mañana seguro.",      correct:false, expl:"Enunciativa afirmativa con adverbio de certeza."},
+  {text:"¿Vendrá mañana?",           correct:false, expl:"Interrogativa directa total."},
+],
+explanation:"Las oraciones dubitativas expresan duda o probabilidad mediante adverbios modales (quizás, tal vez, acaso, igual) que rigen indicativo (mayor certeza) o subjuntivo (menor certeza)."},
+
+// 3.2 Par mínimo — gramática (tipo test)
+{block:1,type:"sent-mcq",meta:"Par mínimo · Relativa",
+prompt:"¿Cuál de estas oraciones es gramatical y por qué?",
+options:[
+  {text:"Es una persona que la vi ayer.",    correct:false, expl:"Agramatical: duplicación del CD. «que» ya es CD; añadir «la» es redundante."},
+  {text:"Es una persona a la que vi ayer.",  correct:true,  expl:"Gramatical: el relativo «a la que» ejerce de CD con su preposición; no hay duplicación."},
+  {text:"Es una persona que le vi ayer.",    correct:false, expl:"Agramatical: leísmo de persona (uso incorrecto del CI «le» por CD)."},
+  {text:"Es una persona que la vi a ella.",  correct:false, expl:"Agramatical: duplicación con pronombre tónico, no aceptable en relativa especificativa."},
+],
+explanation:"En relativas especificativas, el pronombre relativo debe llevar la preposición que le corresponde a su función («a la que» = CD). No se añade pronombre de retoma."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · Inacusativo vs. transitivo",
+prompt:"¿Cuál de estas oraciones es gramatical?",
+options:[
+  {text:"*El árbol fue florecido.",      correct:false, expl:"Agramatical: «florecer» es inacusativo, no tiene agente; no admite pasiva perifrástica."},
+  {text:"El árbol fue talado.",          correct:true,  expl:"Gramatical: «talar» es transitivo (hay agente implícito); admite pasiva perifrástica."},
+  {text:"*El árbol fue aparecido.",      correct:false, expl:"Agramatical: «aparecer» es inacusativo; misma razón que «florecer»."},
+  {text:"*El árbol fue crecido por él.", correct:false, expl:"Agramatical: «crecer» es inacusativo; no admite pasiva perifrástica."},
+],
+explanation:"Solo los verbos transitivos (con argumento externo/agente) admiten pasiva perifrástica con «ser + participio». Los verbos inacusativos solo tienen argumento interno y no pueden tener agente."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · Colectivo singular",
+prompt:"¿Cuál de estas oraciones es gramatical?",
+options:[
+  {text:"*El equipo llegaron tarde.",   correct:false, expl:"Agramatical: «equipo» es sustantivo colectivo singular; el verbo debe ir en singular."},
+  {text:"El equipo llegó tarde.",       correct:true,  expl:"Gramatical: verbo en singular concordando con el núcleo colectivo «equipo»."},
+  {text:"*La gente deciden solos.",     correct:false, expl:"Agramatical: «gente» es colectivo singular → «decide» (singular); «solos» tampoco concuerda."},
+  {text:"*El alumnado entregaron.",     correct:false, expl:"Agramatical: «alumnado» es colectivo singular → «entregó»."},
+],
+explanation:"Los sustantivos colectivos (equipo, alumnado, gente, grupo...) son morfológicamente singulares en español y rigen concordancia verbal en singular, a diferencia de algunas otras lenguas."},
+
+// 3.3 Funciones sintácticas — identificar la correcta
+{block:3,type:"sent-mcq",meta:"Función sintáctica · CC de instrumento",
+prompt:"¿En cuál de estas oraciones el sintagma en mayúsculas es un CC de instrumento?",
+options:[
+  {text:"Los alumnos realizan los ejercicios EN CASA.",   correct:false, expl:"CC de lugar (indica dónde se realiza la acción)."},
+  {text:"Marcos corta el pan CON EL CUCHILLO.",          correct:true,  expl:"CC de instrumento (objeto físico usado para realizar la acción)."},
+  {text:"Carla llegó CON GRIPE.",                        correct:false, expl:"CC de modo o complemento de manera (estado en que llega)."},
+  {text:"Salió CON SUS AMIGOS.",                         correct:false, expl:"CC de compañía (acompañante de la acción)."},
+],
+explanation:"El CC de instrumento indica el objeto físico con el que se realiza la acción. Se construye con «con» + SN concreto manipulable por el agente."},
+
+{block:3,type:"sent-mcq",meta:"Función sintáctica · Sujeto oracional",
+prompt:"¿En cuál de estas oraciones el sujeto es una oración subordinada sustantiva?",
+options:[
+  {text:"Le gusta QUE LA LLAMES.",             correct:true,  expl:"«Que la llames» es sujeto: el verbo «gustar» selecciona sujeto, no CD."},
+  {text:"Sonia no explicó QUÉ FUMA.",          correct:false, expl:"«Qué fuma» es CD (interrogativa indirecta)."},
+  {text:"Me alegra LA NOTICIA.",               correct:false, expl:"«La noticia» es SN, no oración subordinada."},
+  {text:"No entiendo LO QUE DICES.",          correct:false, expl:"«Lo que dices» es CD (relativa libre/sustantivada)."},
+],
+explanation:"«Gustar», «encantar», «molestar»... seleccionan un sujeto oracional. La prueba: si puedes sustituirlo por «eso» y el verbo no cambia de función, es sujeto."},
+
+{block:3,type:"sent-mcq",meta:"Función sintáctica · Complemento predicativo",
+prompt:"¿En cuál de estas oraciones el adjetivo en mayúsculas es un complemento predicativo?",
+options:[
+  {text:"Tuvimos que comprar los muebles CAROS.",        correct:false, expl:"Aquí «caros» es modificador del SN «los muebles caros» → CN adjetivo."},
+  {text:"Tuvimos que comprar CAROS los muebles.",        correct:true,  expl:"«Caros» predicativo del CD «los muebles»: describe el estado del objeto en el momento de la compra."},
+  {text:"Los muebles son CAROS.",                        correct:false, expl:"«Caros» es atributo del sujeto en oración copulativa."},
+  {text:"Son unos muebles muy CAROS.",                   correct:false, expl:"«Caros» es CN adjetivo del SN «unos muebles muy caros»."},
+],
+explanation:"El complemento predicativo modifica a la vez al verbo y a un SN (sujeto o CD). A diferencia del CN adjetivo, no está integrado dentro del SN y aparece en posición dislocada."},
+
+// ── BLOQUE 4: Pares mínimos Dossier ──────────────────────────────────────
+{block:1,type:"open",meta:"Par mínimo · 1",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) ¿Sabes que va a ocurrir?\n(b) ¿Sabes qué va a ocurrir?",
+placeholder:"",
+rubric:"(a) 'que' conjunción subordinante completiva → CD declarativo. (b) 'qué' pronombre interrogativo tónico → CD interrogativa indirecta. Diferencia: tilde diacrítica + función sintáctica."},
+
+{block:1,type:"open",meta:"Par mínimo · 2",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) Abrió la puerta con la llave.\n(b) Abrió la puerta con violencia.",
+placeholder:"",
+rubric:"(a) CC instrumento (objeto físico). (b) CC modo (manera). Mismo 'con', diferente valor semántico."},
+
+{block:1,type:"open",meta:"Par mínimo · 3",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) Andrés midió los kilómetros de la pista.\n(b) La pista mide tres kilómetros.",
+placeholder:"",
+rubric:"(a) 'midió' transitivo: agente + CD. (b) 'mide' pseudocopulativo de medida: sujeto = argumento interno (tema), 'tres kilómetros' = atributo de medida, no CD."},
+
+{block:1,type:"open",meta:"Par mínimo · 4",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) Bailaron en el escenario.\n(b) Bailaron un vals.",
+placeholder:"",
+rubric:"(a) 'bailar' inergativo sin CD; 'en el escenario' CC lugar. (b) 'bailar' transitivo con objeto cognado: 'un vals' CD. Cambio de subcategorización verbal."},
+
+{block:1,type:"open",meta:"Par mínimo · 5",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) Se contrataron a dos profesores.\n(b) Se contrataron sus servicios.",
+placeholder:"",
+rubric:"(a) Impersonal refleja con CD de persona marcado con 'a'; verbo no concuerda. (b) Pasiva refleja canónica: 'sus servicios' sujeto paciente concuerda con el verbo."},
+
+{block:1,type:"open",meta:"Par mínimo · 11",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) Me ha recordado que llegas pronto.\n(b) Me ha recordado que llegues pronto.",
+placeholder:"",
+rubric:"(a) Indicativo → subordinada declarativa (hecho). (b) Subjuntivo → subordinada volitiva (deseo/petición). El modo cambia el valor semántico."},
+
+{block:1,type:"open",meta:"Par mínimo · 13",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) Se construye demasiado.\n(b) *Se construyen demasiado.",
+placeholder:"",
+rubric:"Impersonal refleja sin CD → verbo obligatoriamente en singular. En (b) el plural es agramatical porque no hay SN sujeto."},
+
+{block:1,type:"open",meta:"Par mínimo · 15 (PAU 2024)",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) Tuvimos que comprar los muebles caros.\n(b) Tuvimos que comprar caros los muebles.",
+placeholder:"",
+rubric:"(a) 'caros' CN adjetivo del SN → cualidad permanente. (b) 'caros' predicativo del CD → estado en el momento de la compra. Misma forma, diferente función y significado."},
+
+{block:1,type:"open",meta:"Par mínimo · 17 (PAU 2023)",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) Las fotografías fueron eliminadas.\n(b) *Las fotografías fueron desaparecidas.",
+placeholder:"",
+rubric:"(a) 'eliminar' transitivo → admite pasiva perifrástica. (b) 'desaparecer' inacusativo → sin agente; la pasiva es agramatical."},
+
+{block:1,type:"open",meta:"Par mínimo · 18 (PAU 2023)",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) La propuesta me parece bastante absurda.\n(b) *La propuesta me parece bastante estudiantil.",
+placeholder:"",
+rubric:"(a) 'absurda' adjetivo calificativo gradable → admite 'bastante'. (b) 'estudiantil' adjetivo relacional → no es gradable semánticamente."},
+
+{block:1,type:"open",meta:"Par mínimo · 19 (PAU 2022)",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) *La aconsejé tranquilizarse.\n(b) Le aconsejé tranquilizarse.",
+placeholder:"",
+rubric:"'Aconsejar' rige CI (dativo): la persona aconsejada es CI, pronombre 'le'. Usar 'la' es laísmo."},
+
+{block:1,type:"open",meta:"Par mínimo · 21 (PAU 2021)",
+prompt:"Explica qué diferencia gramatical hay entre estas dos oraciones.",
+quote:"(a) El coche fue reparado.\n(b) *El coche fue aparecido.",
+placeholder:"",
+rubric:"(a) 'reparar' transitivo → pasiva posible. (b) 'aparecer' inacusativo → sin agente; pasiva perifrástica imposible."},
+
+// ── BLOQUE 5: Análisis inverso ────────────────────────────────────────────
+{block:2,type:"open",meta:"Análisis inverso · 1 (PAU 2021 J.)",
+prompt:"Escribe una oración que contenga exactamente los siguientes elementos y justifica cada uno.",
+quote:"• Verbo transitivo\n• Pronombre numeral cardinal\n• Complemento predicativo\n• Pronombre relativo",
+placeholder:"",
+rubric:"Verbo transitivo con CD, numeral cardinal pronominal (los tres...), predicativo orientado al sujeto o CD, pronombre relativo (que/quien/el cual). Oración natural y correcta."},
+
+{block:2,type:"open",meta:"Análisis inverso · 2 (PAU 2024 J.)",
+prompt:"Escribe una oración que contenga exactamente los siguientes elementos y justifica cada uno.",
+quote:"• Verbo transitivo\n• Complemento locativo argumental\n• Determinante demostrativo\n• Adjetivo calificativo",
+placeholder:"",
+rubric:"Verbo transitivo (poner/meter/llevar...) con locativo argumental exigido, demostrativo (este/ese/aquel), adjetivo calificativo gradable."},
+
+{block:2,type:"open",meta:"Análisis inverso · 3 (PAU 2024 S.)",
+prompt:"Escribe una oración que contenga exactamente los siguientes elementos y justifica cada uno.",
+quote:"• Pronombre interrogativo\n• Verbo transitivo\n• Complemento predicativo\n• Adverbio demostrativo",
+placeholder:"",
+rubric:"Pronombre interrogativo (qué/quién/cuál...), verbo transitivo, predicativo orientado a sujeto o CD, adverbio demostrativo (aquí/ahí/allí/así)."},
+
+{block:2,type:"open",meta:"Análisis inverso · 4",
+prompt:"Escribe una oración que contenga exactamente los siguientes elementos y justifica cada uno.",
+quote:"• Verbo inacusativo\n• Complemento locativo argumental\n• Singularia tantum\n• Adverbio pronominal",
+placeholder:"",
+rubric:"Verbo inacusativo (llegar/aparecer/surgir/nacer...), locativo argumental, singularia tantum (caos/sed/tez/salud...), adverbio pronominal (aquí/allí/así)."},
+
+{block:2,type:"open",meta:"Análisis inverso · 7",
+prompt:"Escribe una oración que contenga exactamente los siguientes elementos y justifica cada uno.",
+quote:"• Adverbio de tiempo\n• Hipónimo de pescado\n• Pasiva refleja",
+placeholder:"",
+rubric:"Adv. de tiempo (ayer/hoy/mañana/siempre...), hipónimo de 'pescado' (salmón/bacalao/merluza...), pasiva refleja (se + verbo transitivo concordando con sujeto paciente)."},
+
+{block:2,type:"open",meta:"Análisis inverso · 11",
+prompt:"Escribe una oración que contenga exactamente los siguientes elementos y justifica cada uno.",
+quote:"• Verbo en imperativo\n• Complemento directo\n• Sujeto agente",
+placeholder:"",
+rubric:"Verbo en imperativo (2ª sg./pl.) con CD explícito y sujeto agente tácito (tú) o explícito. Oración directa y correcta."},
+
+{block:2,type:"open",meta:"Análisis inverso · 15",
+prompt:"Escribe una oración que contenga exactamente los siguientes elementos y justifica cada uno.",
+quote:"• Sujeto tácito\n• Complemento directo\n• CPred orientado al CD",
+placeholder:"",
+rubric:"Sujeto no expreso (se infiere por desinencia), CD explícito, predicativo que describe el estado del CD: ej. 'Encontró las flores marchitas.'"},
+
+// ── BLOQUE 6: Subordinadas ────────────────────────────────────────────────
+{block:4,type:"join",meta:"Subordinadas · 1",prompt:"Une estas dos ideas en una sola oración usando una subordinada adecuada.",
+parts:["He estudiado toda la noche.","Mañana tengo un examen."],
+placeholder:"",
+rubric:"Causal: '...porque/ya que/dado que mañana tengo un examen.' O final: 'He estudiado para rendir bien mañana.'"},
+
+{block:4,type:"join",meta:"Subordinadas · 2",prompt:"Une estas dos ideas en una sola oración usando una subordinada adecuada.",
+parts:["Llegó tarde al trabajo.","El tráfico está muy congestionado."],
+placeholder:"",
+rubric:"Causal: '...porque el tráfico estaba congestionado.' Valorar ajuste del tiempo verbal al pasado."},
+
+{block:4,type:"join",meta:"Subordinadas · 3",prompt:"Une estas dos ideas en una sola oración usando una subordinada adecuada.",
+parts:["No entiendo la lección.","Me la han explicado varias veces."],
+placeholder:"",
+rubric:"Concesiva: '...aunque/a pesar de que me la han explicado varias veces.' Indicativo con 'aunque' cuando el hecho es real."},
+
+{block:4,type:"join",meta:"Subordinadas · 5",prompt:"Une estas dos ideas en una sola oración usando una subordinada adecuada.",
+parts:["Tomó un taxi.","Llegar más rápido a la estación."],
+placeholder:"",
+rubric:"Final: 'Tomó un taxi para llegar más rápido.' Nexo final + infinitivo (mismos sujetos)."},
+
+{block:4,type:"join",meta:"Subordinadas · 7",prompt:"Une estas dos ideas en una sola oración usando una subordinada adecuada.",
+parts:["Visitaron un museo.","El museo estaba cerca del hotel."],
+placeholder:"",
+rubric:"Relativa especificativa: '...que estaba cerca del hotel.' Sin coma porque especifica cuál museo."},
+
+{block:4,type:"join",meta:"Subordinadas · 8",prompt:"Une estas dos ideas en una sola oración usando una subordinada adecuada.",
+parts:["Tiene muy buena voz.","Podría ser cantante profesional."],
+placeholder:"",
+rubric:"Consecutiva: 'Tiene tan buena voz que podría ser cantante.' Correlación tan…que."},
+
+{block:4,type:"join",meta:"Subordinadas · 11",prompt:"Une estas dos ideas en una sola oración usando una subordinada adecuada.",
+parts:["Monté la estantería.","Las instrucciones indicaban cómo montar la estantería."],
+placeholder:"",
+rubric:"Modal: '...tal como/según indicaban las instrucciones.' O relativa: '...siguiendo las instrucciones que indicaban cómo hacerlo.'"},
+
+{block:4,type:"join",meta:"Subordinadas · 12",prompt:"Une estas dos ideas en una sola oración usando una subordinada adecuada.",
+parts:["Luis Mateo Díez nació en Villablino.","Entregaron el Premio Cervantes a Luis Mateo Díez."],
+placeholder:"",
+rubric:"Relativa explicativa con coma: 'Luis Mateo Díez, que nació en Villablino, recibió el Premio Cervantes.'"},
+
+{block:4,type:"join",meta:"Subordinadas · 13",prompt:"Une estas dos ideas en una sola oración usando una subordinada adecuada.",
+parts:["Iremos a la playa.","Hace buen tiempo."],
+placeholder:"",
+rubric:"Condicional: 'Iremos a la playa si hace buen tiempo.' Condición real → indicativo en prótasis."},
+
+{block:4,type:"join",meta:"Subordinadas · 15",prompt:"Une estas dos ideas en una sola oración usando una subordinada adecuada.",
+parts:["Celia llama a su madre.","Celia tiene problemas."],
+placeholder:"",
+rubric:"Temporal: '...cuando tiene problemas.' O causal: '...porque tiene problemas.' Ambas válidas."},
+
+// ── BLOQUE 7: Vocabulario + Parónimos ─────────────────────────────────────
+{block:6,type:"vocab-mcq",meta:"Vocabulario · 1",
+prompt:"Selecciona el grupo de sinónimos correcto.",
+quote:"Magnánimo · Peregrino · Inanición · Acuciante",
+options:[
+  {text:"generoso, singular, hambre, urgente",correct:true},
+  {text:"valiente, viajero, cansancio, prescindible",correct:false},
+  {text:"mezquino, exótico, vacío, apremiante",correct:false},
+  {text:"noble, errante, fastidio, relevante",correct:false},
+],
+explanation:"Magnánimo = generoso/noble. Peregrino = singular/extraño. Inanición = debilidad por falta de alimento. Acuciante = urgente/apremiante."},
+
+{block:6,type:"vocab-mcq",meta:"Vocabulario · 2",
+prompt:"Selecciona el grupo de sinónimos correcto.",
+quote:"Parsimonia · Vehemencia · Conjurar · Inminente",
+options:[
+  {text:"desidia, fervor, invocar, dudoso",correct:false},
+  {text:"calma, ardor, exorcizar, lejano",correct:false},
+  {text:"moderación, entusiasmo, alejar, próximo",correct:false},
+  {text:"lentitud, intensidad, convocar, cercano",correct:true},
+],
+explanation:"Parsimonia = lentitud excesiva. Vehemencia = intensidad/pasión. Conjurar = convocar. Inminente = próximo, que ocurrirá pronto."},
+
+{block:6,type:"vocab-mcq",meta:"Vocabulario · 3",
+prompt:"Selecciona el grupo de sinónimos correcto.",
+quote:"Oneroso · Lánguido · Disyuntiva · Efímero",
+options:[
+  {text:"provechoso, ágil, duda, breve",correct:false},
+  {text:"costoso, lánguido, solución, eterno",correct:false},
+  {text:"pesado, débil, dilema, pasajero",correct:true},
+  {text:"caro, cansado, problema, duradero",correct:false},
+],
+explanation:"Oneroso = pesado/gravoso. Lánguido = débil/sin energía. Disyuntiva = dilema. Efímero = pasajero."},
+
+{block:6,type:"vocab-mcq",meta:"Vocabulario · 5",
+prompt:"Selecciona el grupo de sinónimos correcto.",
+quote:"Indolente · Consuetudinario · Perentorio · Diáfano",
+options:[
+  {text:"trabajador, extraño, postergado, opaco",correct:false},
+  {text:"apático, habitual, urgente, claro",correct:true},
+  {text:"perezoso, normal, necesario, limpio",correct:false},
+  {text:"diligente, común, exigente, transparente",correct:false},
+],
+explanation:"Indolente = apático. Consuetudinario = habitual. Perentorio = urgente. Diáfano = claro/transparente."},
+
+{block:6,type:"vocab-mcq",meta:"Vocabulario · 6",
+prompt:"Selecciona el grupo de sinónimos correcto.",
+quote:"Prolífico · Vorágine · Lacónico · Impávido",
+options:[
+  {text:"fecundo, caos, breve, sereno",correct:true},
+  {text:"estéril, calma, extenso, asustado",correct:false},
+  {text:"creativo, tumulto, parco, intrépido",correct:false},
+  {text:"productivo, orden, reducido, temeroso",correct:false},
+],
+explanation:"Prolífico = fecundo/productivo. Vorágine = caos/torbellino. Lacónico = breve/conciso. Impávido = sereno/imperturbable."},
+
+{block:6,type:"paronyms",meta:"Parónimos · 1-15",
+prompt:"Elige la opción correcta para completar cada oración.",
+items:[
+  {sentence:"Reciclar materiales de ___ es importante.",          options:["deshecho","desecho"],    answer:"desecho"},
+  {sentence:"___ qué ocurre en la reunión de esta tarde.",        options:["Haber","A ver"],         answer:"A ver"},
+  {sentence:"Yo ___ estudiado más para aprobar.",                 options:["habría","abría"],         answer:"habría"},
+  {sentence:"Cuando ___ problemas, avísame.",                     options:["haya","halla"],           answer:"haya"},
+  {sentence:"Te ___ mucho de menos.",                            options:["hecho","echo"],           answer:"echo"},
+  {sentence:"Muchos se emocionan cuando ___ la bandera.",         options:["hizo","izo"],             answer:"izo"},
+  {sentence:"Ha ___ el tiro.",                                   options:["herrado","errado"],       answer:"errado"},
+  {sentence:"La policía ___ un alijo de droga.",                 options:["aprendió","aprehendió"],  answer:"aprehendió"},
+  {sentence:"No podemos ___ hasta los dieciocho años.",           options:["botar","votar"],          answer:"votar"},
+  {sentence:"Su política fiscal ___ a los más pobres.",           options:["graba","grava"],          answer:"grava"},
+  {sentence:"Decidió ___ la información secreta.",               options:["rebelar","revelar"],      answer:"revelar"},
+  {sentence:"El ___ llegó muy tarde al encuentro.",              options:["barón","varón"],          answer:"barón"},
+  {sentence:"La ___ estaba en mal estado.",                      options:["valla","vaya"],           answer:"valla"},
+  {sentence:"Se me erizaba el ___ de los brazos.",               options:["bello","vello"],          answer:"vello"},
+  {sentence:"El juez puede ___ al acusado.",                     options:["absolver","absorber"],    answer:"absolver"},
+]},
+
+{block:6,type:"paronyms",meta:"Parónimos · 16-30",
+prompt:"Elige la opción correcta para completar cada oración.",
+items:[
+  {sentence:"Mi abuela era una mujer ___ y generosa.",           options:["sabia","savia"],          answer:"sabia"},
+  {sentence:"Él ___ en ayudarme con el proyecto.",               options:["combino","convino"],      answer:"convino"},
+  {sentence:"Aseguró que estaba al ___ de la calle.",            options:["cabo","cavo"],            answer:"cabo"},
+  {sentence:"Necesitamos ___ para entender la situación.",       options:["contesto","contexto"],    answer:"contexto"},
+  {sentence:"La ___ entre los miembros del equipo es crucial.",  options:["cohesión","conexión"],    answer:"cohesión"},
+  {sentence:"En la religión católica, se ___ los pecados.",      options:["espían","expían"],        answer:"expían"},
+  {sentence:"Podemos ___ el aire por la boca.",                  options:["espirar","expirar"],      answer:"espirar"},
+  {sentence:"La cuerda estaba ___ después de que la aflojaron.", options:["lasa","laxa"],            answer:"laxa"},
+  {sentence:"Su ___ ante los problemas es admirable.",           options:["actitud","aptitud"],      answer:"actitud"},
+  {sentence:"La ___ de la tienda será a las 9:00.",              options:["apertura","abertura"],    answer:"apertura"},
+  {sentence:"La plaga de insectos ___ la casa.",                 options:["infesta","infecta"],      answer:"infesta"},
+  {sentence:"Es importante ___ los recursos necesarios.",        options:["prever","proveer"],       answer:"prever"},
+  {sentence:"Es importante combatir los ___ sociales.",          options:["prejuicios","perjuicios"],answer:"prejuicios"},
+  {sentence:"Mostró ___ hacia el anciano, cediéndole el asiento.",options:["diferencia","deferencia"],answer:"deferencia"},
+  {sentence:"Para Hume, la ___ es un principio básico.",         options:["causalidad","casualidad"],answer:"causalidad"},
+]},
+
+// ── BLOQUE 8: Funciones sintácticas avanzadas + subordinadas ──────────────
+
+// Funciones sintácticas — tipo test (11 preguntas del PDF)
+{block:3,type:"sent-mcq",meta:"Función sint. · 1 — sopa recalentada",
+prompt:"¿Cuál es la función sintáctica de «la sopa recalentada» en: «Comieron en un restaurante la sopa recalentada»?",
+options:[
+  {text:"CD (complemento directo)",correct:true, expl:"«La sopa recalentada» es el objeto directo del verbo comer: responde a «¿qué comieron?»"},
+  {text:"CLA (complemento locativo argumental)",correct:false,expl:"El CLA aquí es «en un restaurante», no la sopa."},
+  {text:"CN (complemento del nombre)",correct:false,expl:"El CN modifica a un nombre; aquí no depende de ningún SN."},
+  {text:"CCL (complemento circunstancial de lugar)",correct:false,expl:"CCL es «en un restaurante». La sopa es el objeto de la acción."},
+],
+explanation:"«La sopa recalentada» es el CD: responde a «¿qué comieron?» y puede pronominalizarse por «la» (La comieron en un restaurante)."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · 2 — Me estoy comiendo",
+prompt:"¿Qué función tiene «Me» en: «Me estoy comiendo un helado»?",
+options:[
+  {text:"CD (complemento directo)",correct:false,expl:"El CD es «un helado», no «me»."},
+  {text:"CI argumental",correct:false,expl:"No hay CI argumental aquí; el beneficiario de comer es el propio sujeto."},
+  {text:"Marca de pasiva refleja",correct:false,expl:"No es pasiva refleja; hay un CD explícito («un helado»)."},
+  {text:"Dativo aspectual (dativo de interés propio)",correct:true,expl:"«Me» es un dativo aspectual o de interés: el sujeto realiza la acción en beneficio propio. Añade un matiz de implicación personal."},
+],
+explanation:"«Me» en «Me estoy comiendo un helado» es un dativo aspectual (de interés propio): no cambia el significado básico pero añade implicación del sujeto en la acción."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · 3 — Vive en Madrid",
+prompt:"¿Cuál es la función de «en Madrid» en: «Vive en Madrid desde hace años»?",
+options:[
+  {text:"CCL (circunstancial de lugar)",correct:false,expl:"Podría parecerlo, pero «vivir» selecciona obligatoriamente el lugar, así que es argumental."},
+  {text:"CLA (complemento locativo argumental)",correct:true,expl:"«Vivir» selecciona el lugar como argumento obligatorio; sin él la oración queda incompleta (*Vive desde hace años)."},
+  {text:"CRV (complemento de régimen verbal)",correct:false,expl:"El CRV va introducido por una preposición fija exigida por el verbo semánticamente, como «confiar en» o «depender de»."},
+  {text:"Atributo",correct:false,expl:"El atributo aparece con verbos copulativos (ser/estar/parecer), no con «vivir»."},
+],
+explanation:"«En Madrid» es CLA: el verbo «vivir» exige un locativo como argumento interno. La prueba: *«Vive desde hace años» resulta incompleta sin el lugar."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · 4 — para su hermana",
+prompt:"¿Qué función tiene «para su hermana» en: «Compró un regalo para su hermana»?",
+options:[
+  {text:"CD (complemento directo)",correct:false,expl:"El CD es «un regalo»."},
+  {text:"CI (complemento indirecto)",correct:false,expl:"El CI suele pronominalizarse por «le/les» y requiere verbo de transferencia con destinatario directo."},
+  {text:"CC Beneficiario",correct:true,expl:"«Para su hermana» es un adjunto beneficiario: indica para quién se compra, pero no es el destinatario argumental del verbo comprar."},
+  {text:"CRV (complemento de régimen verbal)",correct:false,expl:"«Comprar» no selecciona un CRV con «para»."},
+],
+explanation:"«Para su hermana» es un CC Beneficiario (adjunto): indica el destinatario final del regalo pero no es argumento obligatorio de «comprar» como sí lo sería en «enviar algo a alguien»."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · 5 — libro de historia",
+prompt:"¿Qué función tiene «de historia» en: «El libro de historia es muy interesante»?",
+options:[
+  {text:"CD",correct:false,expl:"No hay CD en oraciones copulativas."},
+  {text:"CN (complemento del nombre)",correct:true,expl:"«De historia» complementa al nombre «libro» dentro del SN sujeto; indica la clase o tipo de libro."},
+  {text:"CCL",correct:false,expl:"No indica lugar."},
+  {text:"CI",correct:false,expl:"No hay CI en esta oración."},
+],
+explanation:"«De historia» es CN: depende del nombre «libro» y especifica su tipo. Forma parte del SN «el libro de historia»."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · 6 — gripazo del trabajo",
+prompt:"¿Qué función tiene «con un gripazo del trabajo» en: «Llegó con un gripazo del trabajo»?",
+options:[
+  {text:"CC instrumento",correct:false,expl:"El instrumento implica un objeto usado para hacer algo; aquí se describe un estado del sujeto."},
+  {text:"Predicativo",correct:true,expl:"«Con un gripazo» describe el estado del sujeto («llegó enfermo/con gripe») a la vez que el evento verbal; es predicativo orientado al sujeto."},
+  {text:"CCM (circunstancial de modo)",correct:false,expl:"El CCM describe la manera de realizar la acción, no el estado del sujeto."},
+  {text:"CCCompañía",correct:false,expl:"La compañía implica que llegó acompañado de alguien, no de una enfermedad."},
+],
+explanation:"«Con un gripazo» es un predicativo orientado al sujeto: predica simultáneamente del sujeto y del verbo. Indica el estado en que llegó, como «llegó enfermo»."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · 7 — reparado por el mecánico",
+prompt:"¿Qué función tiene «por el mecánico» en: «El coche fue reparado por el mecánico»?",
+options:[
+  {text:"CRV",correct:false,expl:"El CRV es un complemento de régimen exigido semánticamente por el verbo, no el agente de una pasiva."},
+  {text:"Complemento agente",correct:true,expl:"En la pasiva perifrástica, el agente que realiza la acción se expresa con «por + SN». Aquí «el mecánico» es quien repara."},
+  {text:"Sujeto",correct:false,expl:"El sujeto es «el coche» (sujeto paciente en la pasiva)."},
+  {text:"CD",correct:false,expl:"En la pasiva, el CD de la activa pasa a ser sujeto; no hay CD en esta oración."},
+],
+explanation:"«Por el mecánico» es el complemento agente de la pasiva perifrástica. En la versión activa sería el sujeto: «El mecánico reparó el coche»."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · 8 — que me lo recomendó",
+prompt:"¿Qué función tiene «que me lo recomendó» en: «La persona que me lo recomendó es alemana»?",
+options:[
+  {text:"Sujeto",correct:false,expl:"El sujeto es «La persona que me lo recomendó» como conjunto, no solo la subordinada."},
+  {text:"CD",correct:false,expl:"No es un complemento directo; la oración principal es copulativa."},
+  {text:"Atributo",correct:false,expl:"El atributo es «alemana»."},
+  {text:"Complemento del nombre (CN) / subordinada relativa especificativa",correct:true,expl:"«Que me lo recomendó» es una subordinada relativa especificativa que complementa al nombre «persona», funcionando como CN dentro del SN sujeto."},
+],
+explanation:"«Que me lo recomendó» es una relativa especificativa, función CN dentro del SN «La persona que me lo recomendó». Especifica de qué persona se habla."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · 9 — con quién estás hablando",
+prompt:"¿Qué función tiene «con quién estás hablando» en: «No sabes con quién estás hablando»?",
+options:[
+  {text:"CCCompañía",correct:false,expl:"No es adjunto circunstancial; es un argumento del verbo saber."},
+  {text:"CD (subordinada sustantiva interrogativa indirecta)",correct:true,expl:"«Con quién estás hablando» es una subordinada sustantiva interrogativa indirecta que funciona como CD del verbo «saber»."},
+  {text:"CRV",correct:false,expl:"«Saber» no selecciona CRV con preposición fija."},
+  {text:"Atributo",correct:false,expl:"No hay verbo copulativo."},
+],
+explanation:"«Con quién estás hablando» es CD de «saber»: es una subordinada sustantiva interrogativa indirecta. Pronominalizamos: «No lo sabes» → CD confirmado."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · 10 — que pienses eso",
+prompt:"¿Qué función tiene «que pienses eso» en: «Me asusta que pienses eso»?",
+options:[
+  {text:"CCCompañía",correct:false,expl:"No es adjunto circunstancial."},
+  {text:"CD",correct:false,expl:"«Asustar» con sujeto oracional no toma CD sino sujeto."},
+  {text:"Sujeto",correct:true,expl:"«Que pienses eso» es el sujeto de «asustar»: es lo que provoca el susto. Prueba: *«Eso me asusta» → sujeto. Verbo no concuerda con «me»."},
+  {text:"CRV",correct:false,expl:"«Asustar» no selecciona CRV."},
+],
+explanation:"«Que pienses eso» es sujeto de «asustar»: los verbos psicológicos (asustar, gustar, molestar…) toman un sujeto que expresa la causa del estado psicológico."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · 11 — Te oí llorar",
+prompt:"¿Qué función tiene «llorar» en: «Te oí llorar en la habitación»?",
+options:[
+  {text:"CD",correct:false,expl:"«Te» ya es el CD; «llorar» no puede serlo también."},
+  {text:"Sujeto",correct:false,expl:"El sujeto es el hablante (tácito)."},
+  {text:"Predicativo",correct:true,expl:"«Llorar» es el predicativo del CD «te»: forma parte de la percepción (oír [a alguien] [hacer algo]). Es una construcción de verbos de percepción + infinitivo predicativo."},
+  {text:"CCM",correct:false,expl:"No indica modo, sino el estado/acción del CD percibido."},
+],
+explanation:"En construcciones de percepción (ver, oír, sentir + CD + infinitivo), el infinitivo es predicativo del CD: «te oí [a ti] [llorar]». Describe lo que hace el complemento directo."},
+
+// Tipos de subordinadas — 14 preguntas MCQ
+{block:4,type:"sent-mcq",meta:"Subordinadas · 1 — que hayas venido",
+prompt:"«Me alegra que hayas venido.» ¿Qué tipo de subordinada es «que hayas venido»?",
+options:[
+  {text:"Subordinada relativa libre",correct:false,expl:"Las relativas libres no tienen antecedente y funcionan como SN (lo que, quien...)."},
+  {text:"Subordinada sustantiva de sujeto",correct:true,expl:"«Alegrar» es verbo psicológico que selecciona sujeto: «que hayas venido» es lo que alegra → sujeto."},
+  {text:"Subordinada adverbial causal",correct:false,expl:"No expresa causa; expresa el argumento sujeto del verbo psicológico."},
+  {text:"Subordinada sustantiva de CD",correct:false,expl:"Los verbos psicológicos del tipo «alegrar» seleccionan sujeto oracional, no CD."},
+],
+explanation:"«Que hayas venido» es subordinada sustantiva de sujeto. Los verbos psicológicos como «alegrar, molestar, gustar» seleccionan un sujeto (la causa del estado) que puede ser oracional."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 2 — que compré ayer",
+prompt:"«El libro que compré ayer es muy interesante.» ¿Qué tipo de subordinada es «que compré ayer»?",
+options:[
+  {text:"Subordinada sustantiva",correct:false,expl:"No cumple función de SN; es modificadora del nombre «libro»."},
+  {text:"Subordinada adverbial",correct:false,expl:"No expresa relación adverbial (tiempo, modo, causa…)."},
+  {text:"Subordinada relativa especificativa",correct:true,expl:"Modifica al nombre «libro» sin comas, restringiendo el referente (de todos los libros, el que compré ayer)."},
+  {text:"Subordinada relativa explicativa",correct:false,expl:"La explicativa va entre comas y no restringe el referente; aquí no hay comas."},
+],
+explanation:"«Que compré ayer» es relativa especificativa: modifica al nombre «libro» sin comas, identificando cuál de entre todos los libros posibles."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 3 — porque estaba cansado",
+prompt:"«No salí porque estaba cansado.» ¿Qué tipo de subordinada es «porque estaba cansado»?",
+options:[
+  {text:"Subordinada relativa semilibre",correct:false,expl:"Las semilibres tienen antecedente implícito y funcionan como SN."},
+  {text:"Subordinada sustantiva término de preposición",correct:false,expl:"No funciona como SN sino como adjunto causal."},
+  {text:"Subordinada adverbial consecutiva",correct:false,expl:"La consecutiva expresa efecto de una causa («tan X que Y»)."},
+  {text:"Subordinada adverbial causal",correct:true,expl:"«Porque estaba cansado» expresa la causa de no salir. Nexo causal: «porque»."},
+],
+explanation:"«Porque estaba cansado» es subordinada adverbial causal: introduce la razón o motivo de la acción principal mediante el nexo «porque»."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 4 — cuando llegue a casa",
+prompt:"«Te llamaré cuando llegue a casa.» ¿Qué tipo de subordinada es «cuando llegue a casa»?",
+options:[
+  {text:"Subordinada sustantiva",correct:false,expl:"No funciona como SN."},
+  {text:"Subordinada relativa libre",correct:false,expl:"No hay pronombre relativo con antecedente implícito."},
+  {text:"Subordinada adverbial temporal",correct:true,expl:"«Cuando llegue a casa» expresa el momento en que ocurrirá la acción principal. Nexo temporal: «cuando»."},
+  {text:"Subordinada adverbial concesiva",correct:false,expl:"La concesiva expresa un obstáculo que no impide la acción (aunque, a pesar de que…)."},
+],
+explanation:"«Cuando llegue a casa» es subordinada adverbial temporal: indica el momento en que se producirá la acción. El subjuntivo («llegue») se usa porque el evento es futuro."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 5 — para que aprueben",
+prompt:"«Trabaja mucho para que aprueben el examen.» ¿Qué tipo de subordinada es «para que aprueben el examen»?",
+options:[
+  {text:"Subordinada adverbial final",correct:true,expl:"Expresa la finalidad o propósito de trabajar mucho. Nexo final: «para que» + subjuntivo."},
+  {text:"Subordinada relativa especificativa",correct:false,expl:"No modifica ningún nombre."},
+  {text:"Subordinada sustantiva término de preposición",correct:false,expl:"Aunque lleva «para», la relación es de finalidad adverbial, no sustantiva."},
+  {text:"Subordinada adverbial causal",correct:false,expl:"No expresa causa sino finalidad (propósito)."},
+],
+explanation:"«Para que aprueben» es subordinada adverbial final: expresa el propósito de la acción principal. Las finales llevan «para que / con el fin de que» + subjuntivo."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 6 — si vendrá mañana",
+prompt:"«No sé si vendrá mañana.» ¿Qué tipo de subordinada es «si vendrá mañana»?",
+options:[
+  {text:"Subordinada sustantiva parcial",correct:false,expl:"Las parciales van introducidas por pronombre/adverbio interrogativo (qué, cuándo, cómo…)."},
+  {text:"Subordinada sustantiva interrogativa indirecta total",correct:true,expl:"«Si vendrá» es interrogativa indirecta total (sí/no), CD de «saber». «Si» introduce la pregunta total indirecta."},
+  {text:"Subordinada adverbial condicional",correct:false,expl:"En las condicionales «si» introduce una condición; aquí introduce una pregunta encubierta."},
+  {text:"Subordinada adverbial temporal",correct:false,expl:"No expresa tiempo."},
+],
+explanation:"«Si vendrá mañana» es subordinada sustantiva interrogativa indirecta total: funciona como CD de «saber» y equivale a la pregunta directa «¿Vendrá mañana?»."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 7 — que digas eso",
+prompt:"«Me molesta que digas eso delante de todos.» ¿Qué tipo es «que digas eso»?",
+options:[
+  {text:"Subordinada sustantiva de CD",correct:false,expl:"«Molestar» es verbo psicológico que selecciona sujeto, no CD."},
+  {text:"Subordinada sustantiva de sujeto",correct:true,expl:"«Que digas eso» es la causa del malestar → sujeto de «molestar»."},
+  {text:"Subordinada relativa",correct:false,expl:"No hay antecedente nominal que modificar."},
+  {text:"Subordinada adverbial causal",correct:false,expl:"No expresa causa sino el sujeto oracional del verbo psicológico."},
+],
+explanation:"«Que digas eso» es subordinada sustantiva de sujeto: los verbos psicológicos como «molestar» toman como sujeto aquello que provoca el estado emocional."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 8 — dónde dejé las llaves",
+prompt:"«No recuerdo dónde dejé las llaves.» ¿Qué tipo es «dónde dejé las llaves»?",
+options:[
+  {text:"Subordinada adverbial de lugar",correct:false,expl:"No es adjunto adverbial de la oración principal; es argumento del verbo recordar."},
+  {text:"Subordinada sustantiva interrogativa indirecta de CD",correct:true,expl:"Funciona como CD de «recordar» e introduce una pregunta parcial encubierta (¿dónde dejé las llaves?)."},
+  {text:"Subordinada relativa libre",correct:false,expl:"Las relativas libres equivalen a «el lugar donde», no a una pregunta indirecta."},
+  {text:"Subordinada sustantiva interrogativa de CI",correct:false,expl:"No es CI; «recordar» selecciona CD, no CI."},
+],
+explanation:"«Dónde dejé las llaves» es subordinada sustantiva interrogativa indirecta parcial con función de CD: equivale a «¿Dónde dejé las llaves?» y es el objeto del verbo recordar."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 9 — Los que llegaron tarde",
+prompt:"«Los que llegaron tarde no entraron.» ¿Qué tipo es «los que llegaron tarde»?",
+options:[
+  {text:"Subordinada relativa libre con función de sujeto",correct:false,expl:"La relativa libre no lleva artículo antecedente; aquí «los» es el núcleo del SN."},
+  {text:"Subordinada relativa semilibre con función de sujeto",correct:true,expl:"«Los que llegaron tarde» = artículo + relativa; el artículo actúa como núcleo nominal implícito. Es una relativa semilibre (o con antecedente incorporado)."},
+  {text:"Subordinada sustantiva con función de sujeto",correct:false,expl:"No está introducida por conjunción «que» completiva."},
+  {text:"Subordinada adverbial temporal",correct:false,expl:"No expresa tiempo como adjunto; es sujeto de la oración."},
+],
+explanation:"«Los que llegaron tarde» es una relativa semilibre: el artículo «los» funciona como núcleo nominal (= «las personas que llegaron tarde»). El conjunto ejerce de sujeto."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 10 — lo cual nos sorprendió",
+prompt:"«Llegó tarde, lo cual nos sorprendió mucho.» ¿Qué tipo es «lo cual nos sorprendió mucho»?",
+options:[
+  {text:"Subordinada relativa explicativa con antecedente oracional",correct:true,expl:"«Lo cual» tiene como antecedente toda la oración anterior («Llegó tarde»). Es relativa explicativa (con coma) de antecedente oracional."},
+  {text:"Subordinada sustantiva de CD",correct:false,expl:"No funciona como argumento de un verbo; es relativa con antecedente oracional."},
+  {text:"Subordinada adverbial consecutiva",correct:false,expl:"Las consecutivas llevan «tan/tanto… que», no «lo cual»."},
+  {text:"Subordinada relativa especificativa",correct:false,expl:"La especificativa no va entre comas y no tiene antecedente oracional."},
+],
+explanation:"«Lo cual nos sorprendió mucho» es una subordinada relativa explicativa con antecedente oracional: el pronombre relativo «lo cual» retoma toda la proposición anterior."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 11 — de que nadie lo escucha",
+prompt:"«Se queja de que nadie lo escucha.» ¿Qué tipo es «de que nadie lo escucha»?",
+options:[
+  {text:"Subordinada sustantiva de CD",correct:false,expl:"El CD iría sin preposición; aquí hay «de» porque es CRV."},
+  {text:"Subordinada sustantiva de CRV",correct:true,expl:"«Quejarse de» selecciona un CRV; la subordinada sustantiva funciona como término de esa preposición argumental."},
+  {text:"Subordinada adverbial causal",correct:false,expl:"No expresa causa; es el complemento de régimen verbal del verbo quejarse."},
+  {text:"Subordinada adverbial concesiva",correct:false,expl:"No hay valor concesivo."},
+],
+explanation:"«De que nadie lo escucha» es subordinada sustantiva de CRV: el verbo «quejarse» selecciona obligatoriamente la preposición «de», y la subordinada es término de esa preposición."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 12 — aunque esté cansado",
+prompt:"«Iré contigo, aunque esté cansado.» ¿Qué tipo es «aunque esté cansado»?",
+options:[
+  {text:"Subordinada adverbial causal",correct:false,expl:"No expresa causa sino un obstáculo que no impide la acción."},
+  {text:"Subordinada adverbial concesiva",correct:true,expl:"«Aunque» + subjuntivo expresa un obstáculo que no impide la acción principal. Es adverbial concesiva."},
+  {text:"Subordinada sustantiva término de preposición",correct:false,expl:"No funciona como SN complemento de preposición."},
+  {text:"Subordinada relativa",correct:false,expl:"No hay antecedente nominal."},
+],
+explanation:"«Aunque esté cansado» es subordinada adverbial concesiva: presenta un obstáculo (el cansancio) que no impide la acción. El subjuntivo añade matiz de hipótesis."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 13 — por la que no vino",
+prompt:"«Esa es la razón por la que no vino.» ¿Qué tipo es «por la que no vino»?",
+options:[
+  {text:"Subordinada sustantiva término de preposición",correct:false,expl:"No funciona como SN sino como modificadora del nombre «razón»."},
+  {text:"Subordinada relativa especificativa con antecedente expreso",correct:true,expl:"«Por la que» es pronombre relativo con antecedente «razón». Especifica cuál razón: la que motivó no venir."},
+  {text:"Subordinada relativa libre",correct:false,expl:"La relativa libre no tiene antecedente expreso."},
+  {text:"Subordinada adverbial causal",correct:false,expl:"No es adjunto causal; es relativa que modifica al nombre «razón»."},
+],
+explanation:"«Por la que no vino» es subordinada relativa especificativa con antecedente expreso «razón»: identifica cuál es la razón. El pronombre relativo «la que» lleva la preposición «por» que exige el verbo."},
+
+{block:4,type:"sent-mcq",meta:"Subordinadas · 14 — quien me ayude",
+prompt:"«No tengo quien me ayude.» ¿Qué tipo es «quien me ayude»?",
+options:[
+  {text:"Subordinada relativa semilibre especificativa",correct:false,expl:"Las semilibres llevan artículo (los que, la que…); «quien» es relativo libre."},
+  {text:"Subordinada sustantiva sujeto",correct:false,expl:"No es sujeto; funciona como CD de «tener»."},
+  {text:"Subordinada de relativo libre de sujeto",correct:false,expl:"No es sujeto."},
+  {text:"Subordinada de relativo libre de complemento directo",correct:true,expl:"«Quien me ayude» es CD de «tener»: equivale a «No tengo [una persona que me ayude]». Es relativa libre porque «quien» lleva el antecedente implícito."},
+],
+explanation:"«Quien me ayude» es una subordinada relativa libre funcionando como CD: «quien» incluye el antecedente («la persona que») y el conjunto actúa como objeto de «tener»."},
+
+// Pares mínimos avanzados
+{block:1,type:"sent-mcq",meta:"Par mínimo · «hacer» vs. «estornudar»",
+prompt:"¿Por qué es agramatical «*Juan hizo» pero gramatical «Juan estornudó»?",
+options:[
+  {text:"Porque «hacer» es transitivo y exige CD; «estornudar» es inergativo y solo selecciona sujeto.",correct:true,expl:"Correcto. «Hacer» requiere un objeto directo sin el que no puede usarse (*Juan hizo). «Estornudar» es inergativo: solo necesita sujeto agente."},
+  {text:"Porque «hacer» y «estornudar» son verbos ditransitivos.",correct:false,expl:"Ninguno de los dos es ditransitivo."},
+  {text:"Porque «hacer» puede omitir el CD en uso absoluto.",correct:false,expl:"«Hacer» NO puede omitir el CD en uso absoluto; es subcategorización obligatoria."},
+  {text:"Porque «hacer» necesita siempre un complemento circunstancial.",correct:false,expl:"«Hacer» no exige CC sino CD."},
+],
+explanation:"«Hacer» es transitivo estricto: su CD es argumento obligatorio. Sin él la oración es agramatical. «Estornudar» es inergativo: el sujeto agente es el único argumento; no selecciona CD."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «óptima» vs. «buena»",
+prompt:"¿Por qué «*Es una situación muy óptima» es agramatical pero «Es una situación muy buena» es gramatical?",
+options:[
+  {text:"Las dos son gramaticales, pero una indica grado mayor.",correct:false,expl:"No; «muy óptima» es agramatical por razones morfológicas."},
+  {text:"«Buena» es agramatical porque la expresión correcta es «mejor».",correct:false,expl:"«Buena» es perfectamente gramatical con grado positivo."},
+  {text:"«Óptima» es superlativo absoluto y no admite adverbios de grado como «muy».",correct:true,expl:"«Óptimo» ya es superlativo absoluto (≈ «muy bueno»); añadir «muy» genera redundancia morfológica agramatical."},
+  {text:"La palabra «óptima» no existe.",correct:false,expl:"«Óptima» existe y es gramatical; el problema es su combinación con «muy»."},
+],
+explanation:"«Óptimo/a» es superlativo absoluto sintético (del latín *optimus*): ya contiene el significado de 'el mejor / muy bueno'. Añadir «muy» produce una doble gradación agramatical."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «Esos» vs. «Numerosos»",
+prompt:"¿Por qué «*Numerosos entraron en casa» es agramatical pero «Esos entraron en casa» es gramatical?",
+options:[
+  {text:"La 2 es agramatical porque falta el sujeto.",correct:false,expl:"Ambas tienen sujeto; el problema es la categoría del determinante."},
+  {text:"La 1 es agramatical porque falta sujeto.",correct:false,expl:"«Esos» puede funcionar como pronombre demostrativo → sujeto válido."},
+  {text:"La 1 es agramatical porque los determinantes con núcleo tácito no pueden ser sujeto.",correct:false,expl:"Los determinantes demostrativos SÍ pueden funcionar como pronombres (sujeto)."},
+  {text:"La 2 es agramatical porque los adjetivos determinativos con núcleo tácito no pueden ser sujeto preverbal.",correct:true,expl:"«Numerosos» es adjetivo determinativo que necesita un nombre que modificar; sin núcleo nominal explícito no puede legitimar el sujeto preverbal."},
+],
+explanation:"«Esos» es determinante demostrativo que puede pronominalizarse (= «esas personas»). «Numerosos» es adjetivo determinativo que necesita un nombre: *«numerosos» solo es agramatical como sujeto preverbal."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · predicativo y alcance",
+prompt:"¿Cuál es la diferencia entre «María llevaba a su hijo al colegio la mar de tranquilo» y «la mar de tranquila»?",
+options:[
+  {text:"La oración con «tranquilo» es agramatical porque un niño nunca va tranquilo al colegio.",correct:false,expl:"La gramaticalidad no depende del contenido sino de la concordancia del predicativo."},
+  {text:"«Tranquila» es agramatical porque «hijo» es masculino.",correct:false,expl:"«Tranquila» es gramatical; concuerda con el sujeto femenino «María»."},
+  {text:"Las dos son gramaticales pero el alcance del predicativo cambia: «tranquilo» se orienta al CD («hijo»); «tranquila» se orienta al sujeto («María»).",correct:true,expl:"«Tranquilo» (masc.) concuerda con «hijo» (CD) → predicativo del CD. «Tranquila» (fem.) concuerda con «María» (sujeto) → predicativo del sujeto."},
+  {text:"Las dos son gramaticales y el predicativo afecta al circunstancial.",correct:false,expl:"El predicativo afecta al sujeto o al CD, no al CC."},
+],
+explanation:"La concordancia del predicativo revela su orientación: «tranquilo» (masc.) se orienta al CD «hijo»; «tranquila» (fem.) se orienta al sujeto «María». Ambas son gramaticales con distinto significado."},
+
+// ── BLOQUE 9: Morfología ──────────────────────────────────────────────────
+
+{block:7,type:"sent-mcq",meta:"Morfología · jerarquía — interminable",
+prompt:"¿Cuál es la jerarquía correcta de formación de «interminable»?",
+options:[
+  {text:"término > terminable > interminable",correct:false,expl:"La base verbal es «terminar», no el sustantivo «término»."},
+  {text:"terminar > terminable > interminable",correct:true,expl:"terminar [verbo] → terminable [sufijo -ble: 'que puede terminarse'] → interminable [prefijo in-: negación]. Derivación en dos pasos."},
+  {text:"terminar > interminar > interminable",correct:false,expl:"*«Interminar» no existe como paso intermedio."},
+  {text:"minar > minable > interminable",correct:false,expl:"La base no es «minar» sino «terminar»."},
+],
+explanation:"«Interminable»: terminar → terminable (sufijo -ble) → interminable (prefijo in-). Primero se añade el sufijo que crea el adjetivo, luego el prefijo negativo."},
+
+{block:7,type:"sent-mcq",meta:"Morfología · jerarquía — desigualdades",
+prompt:"¿Cuál es la jerarquía correcta de formación de «desigualdades»?",
+options:[
+  {text:"igual > iguales > desiguales > desigualdades",correct:false,expl:"No se parte de la forma plural ni se añade «des-» al adjetivo."},
+  {text:"igual > igualdad > igualdades > desigualdades",correct:false,expl:"No se pluraliza antes de añadir el prefijo."},
+  {text:"igual > igualdad > desigualdad > desigualdades",correct:true,expl:"igual [adj.] → igualdad [-dad: sustantivo abstracto] → desigualdad [des-: negación] → desigualdades [-es: plural]. Cuatro pasos."},
+  {text:"igual > iguales > desigualdad > desigualdades",correct:false,expl:"El plural del adjetivo no es un paso en la formación del sustantivo."},
+],
+explanation:"«Desigualdades»: igual → igualdad (sufijo -dad) → desigualdad (prefijo des-) → desigualdades (morfema de plural -es). Proceso de derivación con tres afijos."},
+
+{block:7,type:"sent-mcq",meta:"Morfología · jerarquía — desenamoramiento",
+prompt:"¿Cuál es la jerarquía correcta de formación de «desenamoramiento»?",
+options:[
+  {text:"amor > desamor > desenamorar > desenamoramiento",correct:false,expl:"«Desamor» no es paso necesario; el prefijo des- se añade al verbo."},
+  {text:"amor > amar > enamoramiento > desenamoramiento",correct:false,expl:"No se puede añadir «des-» directamente a «enamoramiento»; hay un paso verbal intermedio."},
+  {text:"amor > desamor > desamoramiento > desenamoramiento",correct:false,expl:"*«Desamoramiento» no existe."},
+  {text:"amor > enamorar > desenamorar > desenamoramiento",correct:true,expl:"amor → enamorar [en- + amor + -ar] → desenamorar [des-] → desenamoramiento [-miento]."},
+],
+explanation:"«Desenamoramiento»: amor → enamorar (parasíntesis: en- + -ar) → desenamorar (des-) → desenamoramiento (-miento). Cuatro etapas con prefijos y sufijos acumulados."},
+
+{block:7,type:"sent-mcq",meta:"Morfología · jerarquía — indiscriminadamente",
+prompt:"¿Cuál es la jerarquía correcta de formación de «indiscriminadamente»?",
+options:[
+  {text:"discriminación > discriminar > discriminada > indiscriminada > indiscriminadamente",correct:false,expl:"La base correcta es el verbo, no el sustantivo."},
+  {text:"discriminar > discriminada > indiscriminada > indiscriminadamente",correct:true,expl:"discriminar → discriminada [-ada: participio/adj.] → indiscriminada [in-: negación] → indiscriminadamente [-mente: adverbio]. Cuatro pasos."},
+  {text:"discriminar > discriminación > discriminadamente > indiscriminadamente",correct:false,expl:"*«Discriminadamente» no existe como paso intermedio real."},
+  {text:"discriminar > indiscriminar > indiscriminada > indiscriminadamente",correct:false,expl:"*«Indiscriminar» no existe."},
+],
+explanation:"discriminar → discriminada (participio/adj.) → indiscriminada (prefijo in-) → indiscriminadamente (sufijo -mente). El adverbio en -mente siempre se forma sobre adjetivo."},
+
+{block:7,type:"fill",meta:"Morfología · Verdadero o Falso",
+prompt:"Indica si cada afirmación es Verdadera (V) o Falsa (F).",
+items:[
+  {sentence:"«Imposible» es una palabra derivada.",options:["V","F"],answer:"V"},
+  {sentence:"«Decían» contiene morfemas flexivos.",options:["V","F"],answer:"V"},
+  {sentence:"«Sacapuntas» es una palabra formada por composición.",options:["V","F"],answer:"V"},
+  {sentence:"«Indomable» es una palabra parasintética.",options:["V","F"],answer:"F"},
+  {sentence:"«Centralita» es un diminutivo opaco desde la sincronía.",options:["V","F"],answer:"V"},
+  {sentence:"«Salchipapa» es un ejemplo de acronimia.",options:["V","F"],answer:"F"},
+  {sentence:"«Transmitir» contiene una base opaca.",options:["V","F"],answer:"V"},
+  {sentence:"«Embalaje» es una palabra parasintética.",options:["V","F"],answer:"V"},
+  {sentence:"El prefijo «re-» con valor intensificador solo se adjunta a bases verbales.",options:["V","F"],answer:"F"},
+  {sentence:"El sufijo «-dor» es polisémico: indica agente o lugar.",options:["V","F"],answer:"V"},
+  {sentence:"Todos los sustantivos presentan flexión de género y número.",options:["V","F"],answer:"F"},
+  {sentence:"«Lácteo» y «lechoso» son dos adjetivos derivados.",options:["V","F"],answer:"V"},
+]},
+
+{block:7,type:"open",meta:"Morfología · Análisis de palabras",
+prompt:"Analiza morfológicamente estas palabras: indica la base léxica, los afijos y el proceso de formación de cada una.",
+quote:"cantando · flotadores · infelicidad · abrasadora · ineficazmente · apoliticismo · machihembrar · enturbiarían · mileurista · destronamiento",
+placeholder:"",
+rubric:"Evalúa: identificación correcta de la base léxica (lexema), afijos derivativos (prefijos/sufijos) y flexivos, y denominación del proceso (derivación, composición, parasíntesis, flexión). Valorar análisis morfema a morfema."},
+
+{block:7,type:"open",meta:"Morfología · Clasificación de palabras",
+prompt:"Clasifica estas palabras según el proceso de formación: trabajador, panadería, paraguas, libros, deshacer, abrelatas, casas, felicidad, desentubar, lavaplatos, imposible, ESO, submarino, pararrayos, contrarrestar, caracol.",
+placeholder:"",
+rubric:"Derivación: palabras con afijos derivativos (prefijos o sufijos que cambian categoría o significado). Composición: dos o más bases léxicas. Parasíntesis: prefijo + base + sufijo simultáneos (no existe la forma intermedia). Sigla: ESO. Simple: sin afijos derivativos. Flexión no es proceso de formación."},
+
+// ── BLOQUE 10: Estilo indirecto + Registro ───────────────────────────────
+{block:5,type:"open",meta:"Estilo indirecto · 9 (Landero)",
+prompt:"Transforma en estilo indirecto conservando el valor temporal y modal.",
+quote:"«Volví a casa empapado y di la respuesta desde fuera. \"¡No es bastante!\", gritó mi padre, \"¡pregúntale al músico cómo se llama!, ¡no te conformes con tan poco!, ¿no ves que el saber no ocupa lugar?\". Así que desanduve el camino. Cuando llegué, la vela había bajado mucho y apenas se veía nada. \"¿Que cómo se llama usted?\", le dije»",
+placeholder:"",
+rubric:"Cambios temporales: presente→imperfecto, imperativo→subjuntivo pasado. Cambios pronominales: te→me, no→que no. Interrogativas indirectas con 'si' o pronombre. Desplazamiento de deixis (aquí→allí, este→ese). Verbos introductores adecuados (gritar, decir, preguntar)."},
+
+{block:5,type:"open",meta:"Estilo indirecto · 10 (Landero)",
+prompt:"Transforma en estilo indirecto conservando el valor temporal y modal.",
+quote:"«Y él contestó sin dejar de tocar: \"Manuel me llamo\". Corrí otra vez a casa y di la respuesta. Pero mi padre dijo: \"Y la música, ¿cómo se llama la música? ¡Anda y pregúntale! ¡Corre!\". Cuando llegué, la vela se había apagado. Me asomé y grité: \"¿Cuál es el nombre de la música?\". Pero nadie me contestó»",
+placeholder:"",
+rubric:"'Manuel me llamo'→que se llamaba Manuel. Imperativo '¡anda y pregúntale!'→que fuera a preguntárselo. Interrogativa directa '¿cuál es el nombre?'→qué nombre tenía la música. Ajuste de tiempos (presente→imperfecto, pretérito→pluscuamperfecto)."},
+
+{block:5,type:"open",meta:"Estilo indirecto · 11 (Carmona sobre Rosalía)",
+prompt:"Transforma en estilo indirecto este fragmento de entrevista.",
+quote:"¿Has visto lo de Rosalía? ¡Qué pedazo de show! Estamos al nivel de lo que antes solo veíamos a un Prince o un Michael Jackson. Ahora los españoles y los latinos estamos de moda. Valorémoslo. / A mí me encanta.",
+placeholder:"",
+rubric:"Interrogativa directa→interrogativa indirecta con 'si'. Exclamativa→oración declarativa con verbo de valoración. Presente→imperfecto. Imperativo 'valorémoslo'→que lo valoraran. Pronombres: estamos→estaban, ahora→entonces."},
+
+{block:5,type:"open",meta:"Estilo indirecto · 12 (Carmona)",
+prompt:"Transforma en estilo indirecto este fragmento.",
+quote:"«Para empezar, ella sabe perfectamente lo que es una granaína. En su primer disco se atrevió totalmente con el flamenco y es cojonudo. Conoce y respeta el flamenco y, joder, que alguien dé un concierto en Boston y haga un cacho de granaína de mi tierra me parece maravilloso»",
+placeholder:"",
+rubric:"Presente→imperfecto. Pretérito→pluscuamperfecto. Adaptación del léxico coloquial ('cojonudo'→estupendo/magnífico, 'joder'→supresión o reformulación). Deixis: 'mi tierra'→su tierra. Mantenimiento del subjuntivo en subordinadas de valoración."},
+
+{block:5,type:"open",meta:"Reescritura objetiva · 13 (Pérez-Reverte)",
+prompt:"Reescribe el fragmento en tono objetivo, eliminando la subjetividad.",
+quote:"«El otro día, en la tele, en un acto oficial de toga y protocolo, escuché a un ministro de Justicia tuteando a los jueces. Vosotros, nosotros, etcétera. Todos compadres, como si los señores magistrados y él hubieran guardado cerdos en la misma cochinera. Todo muy natural, en fin. Muy de ministros y también de jueces que lo consienten, como la vida española misma. Aquí tuteas a un juez en un juzgado y te cae la del pulpo, pero si eres político puedes llamarlo indecente y como mucho te enarcan reprobadores una ceja.»",
+placeholder:"",
+rubric:"Eliminar: metáforas subjetivas ('guardado cerdos en la misma cochinera', 'te cae la del pulpo'), ironía ('todo muy natural'), juicios valorativos ('como la vida española misma'). Sustituir por: hechos descriptivos, verbos neutros, tercera persona. Mantener la información factual."},
+
+{block:5,type:"open",meta:"Reescritura objetiva · 14 (Pérez-Reverte)",
+prompt:"Subraya mentalmente las expresiones subjetivas y reescribe el fragmento en tono objetivo.",
+quote:"«Pero lo significativo es que semejante bajunería —me refiero a la del ministro tuteador— no parece sorprender a nadie. Lo que por otra parte no tiene nada de extraño en un país como el nuestro, que ha perdido todo respeto hacia sí mismo, si es que alguna vez lo tuvo. Un país que, entre todos y todas, hemos convertido en esperpento surrealista donde cualquier disparate se asume con pasmosa facilidad.»",
+placeholder:"",
+rubric:"Expresiones subjetivas a eliminar: 'bajunería', 'ministro tuteador', 'ha perdido todo respeto hacia sí mismo', 'esperpento surrealista', 'pasmosa facilidad'. Sustituir por léxico neutro. Cambiar 'nosotros' inclusivo por tercera persona impersonal. Mantener estructura argumentativa sin valoraciones."},
+
+{block:6,type:"fill",meta:"Sustitución registro · Sinónimos formales",
+prompt:"Elige el sinónimo de registro formal adecuado para cada palabra coloquial.",
+items:[
+  {sentence:"El profesor se ENFADÓ porque algunos alumnos PASABAN DE hacer la tarea.",options:["molestó / ignoraban","irritó / eludían","se enfureció / rechazaban","incomodó / evitaban"],answer:"irritó / eludían"},
+  {sentence:"Entregaban trabajos CUTRES.",options:["deficientes","feos","malos","incorrectos"],answer:"deficientes"},
+  {sentence:"El jefe dijo que el proyecto era un ROLLO.",options:["aburrido","pesado","tedioso","monótono"],answer:"tedioso"},
+  {sentence:"Había que hacerle un GLOW UP.",options:["una mejora integral","una renovación","un cambio","una transformación estética"],answer:"una mejora integral"},
+  {sentence:"Muchos jóvenes se EMPANAN con las redes sociales.",options:["se obsesionan","se enganchan","se entretienen","se pierden"],answer:"se obsesionan"},
+  {sentence:"Se pasan horas sin HACER EL HUEVO.",options:["sin esforzarse","sin trabajar","sin ser productivos","sin hacer nada útil"],answer:"sin ser productivos"},
+  {sentence:"El informe no tiene NI PIES NI CABEZA.",options:["carece de coherencia","es confuso","no tiene sentido","está mal hecho"],answer:"carece de coherencia"},
+  {sentence:"Contiene datos RANDOM.",options:["aleatorios","variados","dispersos","inconexos"],answer:"aleatorios"},
+]},
+
+// ── BLOQUE 11: Puntuación, coherencia y conectores ────────────────────────
+{block:4,type:"sent-mcq",meta:"Puntuación · María, no saben nada",
+prompt:"¿Cuál de las dos opciones tiene puntuación correcta para expresar que MARÍA es quien no sabe nada?",
+options:[
+  {text:"María, no saben nada.",correct:false,expl:"La coma convierte 'María' en vocativo: alguien se dirige a María diciéndole que 'ellos' no saben nada."},
+  {text:"María no saben nada.",correct:false,expl:"Agramatical: 'María' es sujeto singular pero 'saben' está en plural."},
+  {text:"María no sabe nada.",correct:true,expl:"Sin coma, 'María' es el sujeto; el verbo concuerda en singular. María es la que no sabe."},
+  {text:"Ninguna es correcta.",correct:false,expl:"Sí hay una opción correcta."},
+],
+explanation:"La coma de vocativo cambia radicalmente el significado: CON coma = 'oye, María, ellos no saben nada' (apelación). SIN coma = 'María es quien no sabe nada' (sujeto)."},
+
+{block:4,type:"sent-mcq",meta:"Puntuación · Vamos a comprar",
+prompt:"¿Cuál de las dos opciones es correcta para expresar que vais a comprar a unos chicos (personas)?",
+options:[
+  {text:"Vamos a comprar, chicos.",correct:false,expl:"La coma convierte 'chicos' en vocativo: alguien se dirige a los chicos proponiéndoles ir a comprar."},
+  {text:"Vamos a comprar chicos.",correct:true,expl:"Sin coma, 'chicos' es el CD del verbo comprar: el objeto comprado son los chicos (sentido literal o figurado)."},
+  {text:"Las dos son correctas.",correct:false,expl:"Tienen significados diferentes; solo una expresa lo pedido."},
+  {text:"Ninguna es correcta.",correct:false,expl:"Sí hay una correcta."},
+],
+explanation:"SIN coma: 'chicos' = CD (compramos chicos). CON coma: 'chicos' = vocativo (nos dirigimos a ellos). La coma de vocativo cambia la función sintáctica del SN."},
+
+{block:4,type:"sent-mcq",meta:"Puntuación · relativa explicativa",
+prompt:"¿Cuál de las dos opciones es gramaticalmente correcta para una relativa explicativa?",
+options:[
+  {text:"María que vive en Barcelona vendrá mañana.",correct:false,expl:"Sin comas, la relativa es especificativa: implica que hay varias Marías y solo vendrá la de Barcelona."},
+  {text:"María, que vive en Barcelona, vendrá mañana.",correct:true,expl:"Con comas, la relativa es explicativa: añade información sobre la única María mencionada, sin restringir el referente."},
+  {text:"Las dos son correctas.",correct:false,expl:"Tienen significados y estructuras diferentes."},
+  {text:"María que vive en Barcelona, vendrá mañana.",correct:false,expl:"La coma sola al final no basta; necesita coma también al abrir la relativa."},
+],
+explanation:"Las relativas EXPLICATIVAS van entre comas y aportan información adicional (puede suprimirse). Las ESPECIFICATIVAS van sin comas y restringen el referente."},
+
+{block:0,type:"open",meta:"Coherencia · Ejercicio 22",
+prompt:"Reescribe el texto para mejorar su coherencia y explica qué cambios has realizado y por qué.",
+quote:"«En mi ciudad hay muchos parques donde la gente pasea y hace deporte al aire libre. Los árboles ayudan a mejorar la calidad del aire y a reducir la contaminación. Además, es importante cuidar el medio ambiente para tener una vida más saludable. El otro día fui al cine con mis amigos y vimos una película muy interesante. Los parques también son un buen lugar para descansar y desconectar del ruido de la ciudad. Por eso, cada vez más personas utilizan la bicicleta para moverse.»",
+placeholder:"",
+rubric:"Debe: 1) Eliminar la oración del cine (rompe la unidad temática). 2) Unificar el tema (parques/medioambiente). 3) Reorganizar las ideas en orden lógico (beneficios→consecuencias). 4) Explicar cada cambio justificando coherencia temática y progresión de la información."},
+
+{block:0,type:"open",meta:"Coherencia · Ejercicio 23 — ¿por qué mejora?",
+prompt:"Explica por qué las correcciones del texto mejorado son más adecuadas para una argumentación PAU.",
+quote:"ORIGINAL: «La alimentación es muy importante y hay que comer bien para estar sano. Yo ayer me comí una hamburguesa enorme y estaba brutal. También es bueno hacer deporte y esas cosas. La fruta tiene vitaminas y tal, aunque a veces no apetece mucho. En general hay que cuidarse porque si no luego te encuentras fatal.»\n\nCORREGIDO: «La alimentación equilibrada es fundamental para mantener una buena salud. Consumir alimentos ricos en nutrientes, como frutas y verduras, aporta vitaminas esenciales para el organismo. Además, la práctica regular de ejercicio físico contribuye al bienestar general. De modo que la adopción de hábitos saludables resulta clave para prevenir problemas de salud.»",
+placeholder:"",
+rubric:"Debe explicar: 1) Eliminación de registro coloquial y anécdotas personales (inadecuados en argumentación PAU). 2) Uso de léxico preciso y abstracto (alimentación equilibrada, práctica regular). 3) Conectores argumentativos que marcan la progresión lógica. 4) Generalización vs. particularización (yo→el ser humano/las personas)."},
+
+{block:0,type:"open",meta:"Conectores equivalentes · 24",
+prompt:"Sustituye los conectores del texto por otros equivalentes manteniendo el significado.",
+quote:"«La actividad física es fundamental para la salud, ya que mejora la condición física y reduce el estrés. Además, contribuye al bienestar emocional. Sin embargo, muchas personas no practican ejercicio con regularidad. Por eso, es importante fomentar hábitos saludables desde una edad temprana.»",
+placeholder:"",
+rubric:"'ya que'→puesto que/dado que/porque. 'Además'→asimismo/del mismo modo/igualmente. 'Sin embargo'→no obstante/pero/con todo. 'Por eso'→por lo tanto/en consecuencia/de ahí que. Penalizar cambio de relación lógica."},
+
+{block:0,type:"open",meta:"Tesis, arg. y contraarg. · 27 (teletrabajo)",
+prompt:"Identifica la tesis, el argumento y el contraargumento del texto. Después, sustituye los conectores por equivalentes.",
+quote:"«El teletrabajo ha mejorado la calidad de vida de muchos empleados, ya que permite conciliar mejor la vida laboral y personal. Sin embargo, algunos opinan que reduce la productividad y dificulta el trabajo en equipo. Aun así, muchas empresas siguen apostando por este modelo. Por ello, es necesario encontrar un equilibrio entre ambas modalidades.»",
+placeholder:"",
+rubric:"Tesis: primera oración (el teletrabajo ha mejorado la calidad de vida). Argumento: cláusula causal ('ya que permite conciliar...'). Contraargumento: 'Sin embargo, algunos opinan...'. Refutación: 'Aun así, muchas empresas...'. Conectores: 'ya que'→puesto que, 'Sin embargo'→no obstante, 'Aun así'→con todo, 'Por ello'→por lo tanto."},
+
+// ── BLOQUE 12: Transformaciones y norma ──────────────────────────────────
+{block:0,type:"fill",meta:"Norma académica · 34 — elige la forma correcta",
+prompt:"Selecciona la forma gramatical correcta según la norma académica.",
+items:[
+  {sentence:"Muchos jóvenes no ___ con precaución durante el fin de semana.",options:["condujeron","conducieron"],answer:"condujeron"},
+  {sentence:"El uso excesivo de pantallas puede ___ negativamente a la concentración.",options:["afectar","efectuar"],answer:"afectar"},
+  {sentence:"Si los estudiantes ___ más, los resultados habrían sido mejores.",options:["hubieran estudiado","habrían estudiado"],answer:"hubieran estudiado"},
+  {sentence:"Es importante ___ los riesgos antes de tomar una decisión.",options:["preveer","prever"],answer:"prever"},
+  {sentence:"El equipo de investigadores ___ una solución al problema.",options:["hallaron","halló"],answer:"halló"},
+  {sentence:"Ya ___ exámenes cuando llegó el profesor.",options:["habían","había"],answer:"había"},
+  {sentence:"El conductor ___ varios kilómetros antes de darse cuenta del error.",options:["andó","anduvo"],answer:"anduvo"},
+  {sentence:"No debes ___ las normas de tráfico si quieres evitar sanciones.",options:["infringir","infligir"],answer:"infringir"},
+  {sentence:"Si lo ___, no habría cometido ese error.",options:["hubiera sabido","habría sabido"],answer:"hubiera sabido"},
+  {sentence:"El científico ___ el texto original correctamente.",options:["tradujo","tradució"],answer:"tradujo"},
+  {sentence:"El juez decidió ___ al acusado por falta de pruebas.",options:["absolver","absorber"],answer:"absolver"},
+  {sentence:"Esa persona muestra una mala ___ ante los problemas.",options:["aptitud","actitud"],answer:"actitud"},
+]},
+
+{block:5,type:"open",meta:"Transformación · 35 — voz pasiva",
+prompt:"Transforma el enunciado a voz pasiva sin modificar su sentido.",
+quote:"El gobierno aprobó nuevas medidas económicas.",
+placeholder:"",
+rubric:"Estructura correcta: SN sujeto paciente + ser en tiempo concordado + participio concordado + complemento agente (por + SN). 'aprobó' (pretérito indef.) → 'fueron aprobadas'. El sujeto activo pasa a complemento agente."},
+
+{block:5,type:"open",meta:"Transformación · 36 — voz activa",
+prompt:"Transforma el enunciado a voz activa sin modificar su sentido.",
+quote:"La decisión fue tomada por el comité.",
+placeholder:"",
+rubric:"El complemento agente ('por el comité') pasa a sujeto activo. El sujeto paciente ('la decisión') pasa a CD. El verbo: 'fue tomada' (pasiva) → 'tomó' (activa, pretérito indefinido). Concordancia correcta."},
+
+{block:5,type:"open",meta:"Transformación · 38 — estilo directo",
+prompt:"Transforma el enunciado al estilo directo sin modificar su sentido.",
+quote:"El entrenador afirmó que el equipo ganaría el partido.",
+placeholder:"",
+rubric:"Cambios de tiempo: 'ganaría' (condicional, estilo indirecto) → 'ganará' (futuro, estilo directo). Uso de dos puntos y comillas/guion para introducir el discurso directo. Pronombres: 'el equipo' se mantiene (3ª persona). Verbo introductor seguido de dos puntos."},
+
+{block:5,type:"open",meta:"Transformación · 39 — impersonalización",
+prompt:"Transforma el enunciado aplicando impersonalización sin modificar su sentido.",
+quote:"Alguien localizó a un peligroso delincuente.",
+placeholder:"",
+rubric:"Se elimina el agente indeterminado 'alguien' y se usa la construcción impersonal con 'se' + verbo en singular. CD de persona se mantiene con preposición 'a'. Alternativa válida: pasiva perifrástica 'Fue localizado un peligroso delincuente' o impersonal 'Localizaron a un peligroso delincuente'."},
+
+{block:5,type:"open",meta:"Transformación · 40 — pasiva refleja",
+prompt:"Transforma el enunciado a pasiva refleja sin modificar su sentido.",
+quote:"Muchos jóvenes utilizan patinetes eléctricos en la ciudad.",
+placeholder:"",
+rubric:"Pasiva refleja: se + verbo transitivo + sujeto paciente. El agente ('muchos jóvenes') desaparece. El CD ('patinetes eléctricos') pasa a sujeto paciente y el verbo concuerda con él en plural ('se utilizan'). CC 'en la ciudad' se mantiene."},
+
+{block:5,type:"open",meta:"Ortografía · 41",
+prompt:"Corrige todos los errores ortográficos del texto.",
+quote:"«La reacción de Obama se entiende por la sensación generalizada a cerca del poder sin límites de la banca. La artura ciudadana en medio de una larguísima recesión que conlleva un enpobrecimiento de la clase media es cada vez más esplícita. Aunque faltan concrecciones, Obama ha anunciado tres grandes ideas más allá del fortalecimiento de la Reserva Federal»",
+placeholder:"",
+rubric:"Errores: 'a cerca'→'acerca' (locución adverbial). 'artura'→'hartura' (sustantivo derivado de 'harto'). 'enpobrecimiento'→'empobrecimiento' (prefijo em- ante b/p). 'esplícita'→'explícita' (prefijo ex-). 'concrecciones'→'concreciones' (sin cc; derivado de concretar)."},
+
+{block:0,type:"fill",meta:"Corrección normativa · 44",
+prompt:"Corrige la incorrección en cada enunciado eligiendo la opción correcta.",
+items:[
+  {sentence:"Esta Navidad su chico ___ los pendientes más bonitos de la joyería.",options:["la regaló","le regaló"],answer:"le regaló"},
+  {sentence:"Los cooperantes ___ a los niños pequeñas cantidades de alimentos.",options:["le daban","les daban"],answer:"les daban"},
+  {sentence:"En estos momentos todos los partidos políticos deberían ___ el hombro.",options:["de arrimar","arrimar"],answer:"arrimar"},
+  {sentence:"Te aseguro que ___ hacha es un regalo que me hizo una duquesa.",options:["este","esta"],answer:"esta"},
+  {sentence:"La prensa afirma que los fuertes vientos se mantendrán en todo ___ del Mediterráneo.",options:["el área","la área"],answer:"el área"},
+]},
+
+// ── BLOQUE 13: Clasificación y comparación de oraciones ───────────────────
+{block:4,type:"sent-mcq",meta:"Modalidad · Me gustaría que apruebes",
+prompt:"¿Cómo se clasifica la oración «Me gustaría que apruebes el examen»?",
+options:[
+  {text:"Desiderativa o de optativo con verbo principal en condicional",correct:true,expl:"'Me gustaría' expresa deseo en condicional; la subordinada va en subjuntivo. Es una oración compuesta desiderativa."},
+  {text:"Interrogativa indirecta",correct:false,expl:"No hay pregunta encubierta; expresa un deseo."},
+  {text:"Enunciativa afirmativa simple",correct:false,expl:"No es simple (tiene subordinada) ni meramente enunciativa."},
+  {text:"Exclamativa",correct:false,expl:"No hay exclamación ni entonación exclamativa."},
+],
+explanation:"«Me gustaría que apruebes el examen» es una oración compuesta desiderativa: el verbo principal en condicional ('gustaría') expresa deseo; la subordinada sustantiva en subjuntivo es su sujeto."},
+
+{block:4,type:"sent-mcq",meta:"Modalidad · ¿Me puedes acercar la sal?",
+prompt:"¿Cómo se clasifica «¿Me puedes acercar la sal?»?",
+options:[
+  {text:"Interrogativa directa total con valor de petición (acto de habla indirecto)",correct:true,expl:"Formalmente es interrogativa total, pero pragmáticamente funciona como petición cortés (acto de habla indirecto)."},
+  {text:"Interrogativa parcial",correct:false,expl:"No hay pronombre interrogativo parcial (quién, qué, cuándo…)."},
+  {text:"Imperativa",correct:false,expl:"Gramaticalmente no es imperativa, aunque pragmáticamente funcione como orden suavizada."},
+  {text:"Enunciativa",correct:false,expl:"No afirma ni niega; pregunta (aunque con función de petición)."},
+],
+explanation:"Es una interrogativa total con función pragmática de petición (acto de habla indirecto): la forma es una pregunta pero el propósito es pedir que pasen la sal."},
+
+{block:4,type:"sent-mcq",meta:"Modalidad · Se vieron ayer al salir",
+prompt:"¿Cómo se clasifica «Se vieron ayer al salir de la clase»?",
+options:[
+  {text:"Enunciativa afirmativa con 'se' recíproco",correct:true,expl:"'Se' indica acción recíproca (el sujeto plural se vio mutuamente). Es enunciativa: afirma un hecho."},
+  {text:"Impersonal con 'se'",correct:false,expl:"En las impersonales con 'se' no hay sujeto; aquí el sujeto es el grupo que se vio."},
+  {text:"Pasiva refleja",correct:false,expl:"La pasiva refleja requiere CD que pase a sujeto paciente; aquí 'se' es recíproco."},
+  {text:"Dubitativa",correct:false,expl:"No expresa duda; afirma un hecho pasado."},
+],
+explanation:"«Se vieron ayer» es enunciativa afirmativa con 'se' recíproco: el sujeto plural realizó la acción el uno sobre el otro. El 'al salir' es una subordinada temporal de infinitivo."},
+
+{block:4,type:"sent-mcq",meta:"Modalidad · El paquete fue enviado",
+prompt:"¿Cómo se clasifica «El paquete fue enviado hace dos días»?",
+options:[
+  {text:"Enunciativa afirmativa en voz pasiva perifrástica",correct:true,expl:"'Fue enviado' = pasiva perifrástica (ser + participio). Afirma un hecho. Sujeto paciente: 'el paquete'."},
+  {text:"Impersonal con 'se'",correct:false,expl:"La pasiva refleja llevaría 'se envió'; aquí es pasiva perifrástica con 'ser'."},
+  {text:"Enunciativa con verbo copulativo",correct:false,expl:"'Ser' aquí forma la pasiva, no es copulativo."},
+  {text:"Interrogativa",correct:false,expl:"Es afirmativa, no interrogativa."},
+],
+explanation:"«Fue enviado» es pasiva perifrástica (ser + participio pasado). La oración es enunciativa afirmativa: afirma el hecho de que el paquete fue enviado hace dos días."},
+
+{block:4,type:"open",meta:"Comparación · par activa/pasiva",
+prompt:"Compara estas dos oraciones y explica qué cambia en su estructura y función informativa.",
+quote:"(a) Juan compró el coche.\n(b) El coche fue comprado por Juan.",
+placeholder:"",
+rubric:"Estructura: activa (sujeto agente + verbo transitivo + CD) → pasiva perifrástica (sujeto paciente + ser + participio + complemento agente). Función informativa (tema/rema): en (a) Juan es tema → se tematiza al agente; en (b) el coche es tema → se tematiza al paciente. La pasiva permite topicalizar el objeto."},
+
+{block:4,type:"open",meta:"Comparación · dislocación (el coche lo compró Juan)",
+prompt:"Compara estas dos oraciones y explica qué cambia en su estructura y función informativa.",
+quote:"(a) Juan compró el coche.\n(b) El coche lo compró Juan.",
+placeholder:"",
+rubric:"(a) Orden canónico SVO. (b) Dislocación a la izquierda: el CD 'el coche' se convierte en tópico (información dada), retomado por el clítico 'lo'. El foco recae sobre 'Juan' al final. No es pasiva; el sujeto sigue siendo agente. Fenómeno de topicalización para reorganizar la estructura informativa."},
+
+{block:4,type:"open",meta:"Comparación · focalización (De eso es de lo que hablaré)",
+prompt:"Compara estas dos oraciones y explica qué cambia en su estructura y función informativa.",
+quote:"(a) Hablaré de eso.\n(b) De eso es de lo que hablaré.",
+placeholder:"",
+rubric:"(a) Oración simple con CRV 'de eso'. (b) Oración hendida/ecuacional de relieve (cleft sentence): 'de eso ES de lo que hablaré'. Función: focalización contrastiva del CRV. La construcción copulativa de relieve extrae un constituyente y lo convierte en foco. Contraste posible con 'De eso es de lo que hablaré, no de otra cosa'."},
+
+// ── BLOQUE 14: Funciones completas + pronombres + relacionar ──────────────
+{block:3,type:"sent-mcq",meta:"Función sint. · La libreta roja / sobre la mesa",
+prompt:"¿Qué función tiene «sobre la mesa» en: «La libreta roja está sobre la mesa»?",
+options:[
+  {text:"CLA (complemento locativo argumental)",correct:true,expl:"'Estar' selecciona un locativo como argumento: *'La libreta roja está' está incompleto sin el lugar."},
+  {text:"CCL (circunstancial de lugar)",correct:false,expl:"El CCL es adjunto optativo; aquí el lugar es argumento obligatorio de 'estar'."},
+  {text:"Atributo",correct:false,expl:"El atributo caracteriza al sujeto con adjetivos o SN; aquí es un SPrep locativo."},
+  {text:"CN (complemento del nombre)",correct:false,expl:"No modifica a ningún nombre; es complemento del verbo."},
+],
+explanation:"«Sobre la mesa» es CLA: el verbo 'estar' exige un locativo como argumento interno (*«La libreta roja está» resulta incompleto). A diferencia del CCL, no es suprimible sin afectar la gramaticalidad."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · Ayer llegó con gripe",
+prompt:"¿Qué función tiene «con gripe» en: «Ayer llegó mi hermano con gripe»?",
+options:[
+  {text:"CC de compañía",correct:false,expl:"La compañía implica una persona que acompaña, no una enfermedad."},
+  {text:"Predicativo orientado al sujeto",correct:true,expl:"'Con gripe' describe el estado en que llegó el sujeto ('llegó enfermo/con gripe'). Predica simultáneamente del sujeto y del verbo."},
+  {text:"CC de instrumento",correct:false,expl:"El instrumento implica un objeto con el que se realiza la acción."},
+  {text:"CC de modo",correct:false,expl:"El modo describe cómo se realiza la acción; 'con gripe' describe el estado del sujeto."},
+],
+explanation:"«Con gripe» es predicativo del sujeto: describe el estado de «mi hermano» en el momento de llegar. Se orienta al sujeto y predica sobre él simultáneamente con el verbo."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · Andrés vive en su habitación",
+prompt:"¿Qué función tiene «en su habitación» en: «Andrés vive en su habitación»?",
+options:[
+  {text:"CCL",correct:false,expl:"El CCL es adjunto; aquí el lugar es argumento seleccionado por 'vivir'."},
+  {text:"CLA",correct:true,expl:"'Vivir' selecciona el locativo como argumento: *'Andrés vive' está incompleto sin especificar dónde."},
+  {text:"CN",correct:false,expl:"No modifica ningún nombre."},
+  {text:"CRV",correct:false,expl:"El CRV exige preposición fija semánticamente seleccionada; 'vivir' no tiene esa restricción preposicional."},
+],
+explanation:"«En su habitación» es CLA: «vivir» exige un locativo como argumento interno. Sin él la oración queda incompleta o indefinida."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · por la lluvia",
+prompt:"¿Qué función tiene «por la lluvia» en: «Se anuló el partido por la lluvia»?",
+options:[
+  {text:"Complemento agente",correct:false,expl:"El complemento agente aparece en pasivas perifrásticas; aquí 'se' no forma pasiva perifrástica."},
+  {text:"CC de causa",correct:true,expl:"'Por la lluvia' expresa la causa de la anulación del partido. Es un adjunto causal, no argumento del verbo."},
+  {text:"CRV",correct:false,expl:"'Anular' no selecciona obligatoriamente un complemento con 'por'."},
+  {text:"CC de modo",correct:false,expl:"No indica cómo se anuló sino por qué."},
+],
+explanation:"«Por la lluvia» es CC de causa: expresa el motivo de la anulación. La preposición «por» introduce causa en adjuntos no argumentales."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · pese a su esfuerzo",
+prompt:"¿Qué función tiene «pese a su esfuerzo» en: «No ganó pese a su esfuerzo»?",
+options:[
+  {text:"CC concesivo",correct:true,expl:"'Pese a' introduce un complemento concesivo: expresa el obstáculo que no impidió la situación (no ganar a pesar del esfuerzo)."},
+  {text:"CRV",correct:false,expl:"'Ganar' no selecciona obligatoriamente este complemento."},
+  {text:"CC de causa",correct:false,expl:"No es la causa de no ganar; es un obstáculo concesivo."},
+  {text:"CN",correct:false,expl:"No modifica ningún nombre."},
+],
+explanation:"«Pese a su esfuerzo» es CC concesivo: la locución preposicional «pese a» introduce un complemento que expresa un obstáculo que no impide la acción principal."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · me costó 45€",
+prompt:"¿Qué función tiene «45€» en: «La excursión me costó 45€»?",
+options:[
+  {text:"CD (complemento directo)",correct:false,expl:"'Costar' no es transitivo en el sentido estándar; no admite pasiva: *'45€ fueron costados'."},
+  {text:"Atributo de cantidad / complemento de medida",correct:true,expl:"'Costar' es un verbo pseudocopulativo de precio; '45€' expresa el valor/precio y funciona como atributo o complemento de medida."},
+  {text:"CC de cantidad",correct:false,expl:"No es adjunto circunstancial; es argumento del verbo 'costar'."},
+  {text:"CI",correct:false,expl:"'Me' es el CI (la persona que paga); '45€' es el precio, no el destinatario."},
+],
+explanation:"«45€» es complemento de precio/medida del verbo «costar». El verbo «costar» es pseudocopulativo de precio: selecciona un argumento que expresa el valor de algo."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · para correr la maratón",
+prompt:"¿Qué función tiene «para correr la maratón» en: «Entrenaré mucho para correr la maratón»?",
+options:[
+  {text:"CC final (subordinada adverbial de finalidad)",correct:true,expl:"'Para + infinitivo' expresa la finalidad del entrenamiento. Es adjunto final."},
+  {text:"CRV",correct:false,expl:"'Entrenar' no selecciona obligatoriamente un complemento con 'para'."},
+  {text:"CD",correct:false,expl:"No puede ser CD; 'para' impide que funcione directamente como objeto."},
+  {text:"Predicativo",correct:false,expl:"No describe el estado del sujeto sino la finalidad de la acción."},
+],
+explanation:"«Para correr la maratón» es CC final: la preposición «para» + infinitivo expresa el propósito del entrenamiento. Es un adjunto no argumental del verbo."},
+
+{block:3,type:"sent-mcq",meta:"Función sint. · mientras puedas",
+prompt:"¿Qué función tiene «mientras puedas» en: «Hazlo mientras puedas»?",
+options:[
+  {text:"CC temporal (subordinada adverbial temporal)",correct:true,expl:"'Mientras' introduce una subordinada adverbial temporal: delimita el tiempo durante el que debe hacerse la acción."},
+  {text:"CC concesivo",correct:false,expl:"No expresa obstáculo; expresa tiempo."},
+  {text:"Subordinada sustantiva de CD",correct:false,expl:"No funciona como SN objeto; es adjunto temporal."},
+  {text:"CRV",correct:false,expl:"'Hacer' no selecciona obligatoriamente un complemento temporal con 'mientras'."},
+],
+explanation:"«Mientras puedas» es CC temporal: la conjunción «mientras» introduce una subordinada adverbial que delimita el período durante el que debe realizarse la acción del imperativo."},
+
+{block:3,type:"open",meta:"Relacionar funciones · 13 (sintagmas)",
+prompt:"Relaciona correctamente cada sintagma con su función sintáctica.",
+quote:"1. Le dio un regalo a su hermano.\n2. La casa está muy lejos del centro.\n3. Nombraron delegado a Juan.\n4. Compró el coche con mucho esfuerzo.",
+placeholder:"",
+rubric:"1. CI='a su hermano' (el que recibe), CD='un regalo'. 2. Atributo='muy lejos del centro' (estar + locativo o adjetivo). 3. Predicativo='delegado' (CPred del CD), CD='a Juan'. 4. CD='el coche', CC de modo='con mucho esfuerzo'. Opción correcta: CI, Atributo, CD, CCModo."},
+
+{block:3,type:"open",meta:"Relacionar funciones · 14",
+prompt:"Relaciona correctamente cada sintagma con su función sintáctica.",
+quote:"1. El profesor explicó la lección.\n2. Estoy cansado hoy.\n3. Vive en Barcelona desde hace años.\n4. El libro fue escrito por un autor famoso.",
+placeholder:"",
+rubric:"1. CD='la lección'. 2. Atributo='cansado' (predicado nominal con 'estar'). 3. CLA='en Barcelona' ('vivir' selecciona locativo argumentalmente). 4. Complemento agente='por un autor famoso' (pasiva perifrástica). Opción correcta: CD, Atributo, CLA, Complemento agente."},
+
+{block:3,type:"open",meta:"Relacionar funciones · 15",
+prompt:"Relaciona correctamente cada sintagma con su función sintáctica.",
+quote:"1. Le entregaron las llaves a María.\n2. Los niños llegaron a casa cansados.\n3. Compré pan esta mañana.\n4. Ese chico es muy simpático.",
+placeholder:"",
+rubric:"1. CI='a María' (retomado por clítico 'le'). 2. Predicativo orientado al sujeto='cansados'. 3. CC de tiempo='esta mañana'. 4. Atributo='muy simpático' (ser + adjetivo). Opción correcta: CI, Predicativo, CCT, Atributo."},
+
+{block:3,type:"open",meta:"Pronombres · indicar función",
+prompt:"Indica la función del pronombre en negrita en cada oración.",
+quote:"1. «LO será mañana»\n2. «Nos devuelves el balón, por favor»\n3. «En realidad, no LO parece»\n4. «Cuando quieras, habla con ELLA»\n5. «La gente todavía se acuerda de ELLA»",
+placeholder:"",
+rubric:"1. 'lo' = atributo pronominal (retoma atributo con copulativo). 2. 'nos' = CI. 3. 'lo' = atributo pronominal con 'parecer'. 4. 'ella' = término de preposición en CC compañía ('con ella'). 5. 'ella' = término de preposición en CRV ('acordarse de ella'). Distinguir 'lo' átono como atributo vs. CD."},
+
+{block:3,type:"fill",meta:"V/F · análisis de pronombres",
+prompt:"Indica si el análisis propuesto es verdadero (V) o falso (F) y justifica tu respuesta.",
+items:[
+  {sentence:"En «Han ganado ellos», «ellos» es sujeto.",options:["V","F"],answer:"V"},
+  {sentence:"En «Me gusta que me llames», el primer «me» es sujeto.",options:["V","F"],answer:"F"},
+  {sentence:"En «Nunca confías en mí», «mí» es complemento de régimen.",options:["V","F"],answer:"V"},
+  {sentence:"En «Te llamarán», «te» es complemento directo.",options:["V","F"],answer:"V"},
+  {sentence:"En «No puedo con ella», «ella» es complemento directo.",options:["V","F"],answer:"F"},
+]},
+
+// ── BLOQUE 15: Pares mínimos avanzados (29-34 y 49-54) ────────────────────
+{block:1,type:"sent-mcq",meta:"Par mínimo · «muy óptima» (29)",
+prompt:"«Es una situación muy buena» / «*Es una situación muy óptima». ¿Cuál es la explicación correcta?",
+options:[
+  {text:"Las dos son gramaticales, pero una indica grado mayor.",correct:false,expl:"No; «muy óptima» es agramatical."},
+  {text:"La oración 1 es agramatical porque la expresión correcta es 'mejor'.",correct:false,expl:"«Muy buena» es perfectamente gramatical; «bueno» admite modificación de grado."},
+  {text:"La oración 2 es agramatical porque «óptima» es superlativo absoluto y no admite adverbios de grado.",correct:true,expl:"«Óptimo» ya contiene el valor superlativo ('el mejor'). Añadir «muy» es redundante e agramatical."},
+  {text:"La oración 2 es agramatical porque la palabra «óptima» no existe.",correct:false,expl:"«Óptima» existe y es correcta; el problema es su combinación con «muy»."},
+],
+explanation:"«Óptimo» es superlativo absoluto sintético (< latín *optimus*): ya incluye el significado de 'muy bueno / el mejor'. Combinarlo con «muy» produce doble gradación agramatical."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «Numerosos» (30)",
+prompt:"«Esos entraron en casa» / «*Numerosos entraron en casa». ¿Cuál es la explicación correcta?",
+options:[
+  {text:"La 2 es agramatical porque falta el sujeto.",correct:false,expl:"El problema no es la ausencia de sujeto sino la categoría de «numerosos»."},
+  {text:"La 1 es agramatical porque los determinantes con núcleo tácito no pueden ser sujeto.",correct:false,expl:"Los demostrativos SÍ pueden pronominalizarse y funcionar como sujeto."},
+  {text:"La 2 es agramatical porque los adjetivos determinativos con núcleo tácito no pueden funcionar como sujeto preverbal.",correct:true,expl:"«Numerosos» necesita un nombre explícito que modificar; sin él no puede legitimar el sujeto preverbal."},
+  {text:"Las dos son agramaticales.",correct:false,expl:"La oración 1 es perfectamente gramatical."},
+],
+explanation:"«Esos» es pronombre demostrativo que puede funcionar como sujeto (= 'esas personas'). «Numerosos» es adjetivo determinativo que requiere un nombre; sin él no puede encabezar el SN sujeto."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · adjetivo relacional (31)",
+prompt:"«Una novela muy policíaca» / «Una novela muy entretenida». ¿Cuál es la explicación correcta?",
+options:[
+  {text:"La 1 es agramatical porque los adjetivos relacionales no pueden ser modificados por un adverbio de grado.",correct:true,expl:"«Policíaca» es relacional (indica tipo o clase); los relacionales no son gradables."},
+  {text:"La 2 es agramatical porque los adjetivos calificativos no pueden modificarse por adverbio de grado.",correct:false,expl:"Los calificativos SÍ son gradables («muy entretenida» es gramatical)."},
+  {text:"Las dos son agramaticales.",correct:false,expl:"Solo la 1 es agramatical."},
+  {text:"Las dos son correctas pero con contraste de significado.",correct:false,expl:"La 1 es agramatical; no hay contraste de significado."},
+],
+explanation:"Los adjetivos RELACIONALES (policíaca, laboral, médico…) indican clase o tipo; no admiten modificación de grado. Los CALIFICATIVOS (entretenida, bonito, cansado…) sí son gradables."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «ciertas personas» (33)",
+prompt:"«Ciertas personas llegan tarde» / «Antipáticas personas llegan tarde». ¿Cuál es la explicación correcta?",
+options:[
+  {text:"Las dos son correctas; el adjetivo calificativo en posición preverbal sirve para enfatizar.",correct:false,expl:"«Ciertas» no es calificativo; es determinativo. La gramaticalidad difiere."},
+  {text:"La 2 es agramatical porque necesita un determinante.",correct:false,expl:"Un adjetivo calificativo antepuesto puede legitimar el sujeto ('antipáticas personas' es marginal pero no por falta de determinante)."},
+  {text:"La 1 es agramatical porque «ciertas» es un adjetivo determinativo que no legitima al sujeto preverbal.",correct:true,expl:"«Ciertas» es determinativo (cuantificador); sin artículo u otro determinante no puede legitimar el sujeto preverbal en posición inicial."},
+  {text:"La 1 es agramatical porque «cierto» es adjetivo relacional.",correct:false,expl:"«Cierto» no es relacional; es determinativo/cuantificador."},
+],
+explanation:"«Ciertas» es adjetivo determinativo (cuantificador indefinido): no puede legitimar el sujeto preverbal por sí solo. «Antipáticas» es calificativo y puede anteponerse con valor enfático, lo que hace la oración marginal pero más aceptable."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «está inteligente» (34)",
+prompt:"«Ana está feliz» / «*Ana está inteligente». ¿Cuál es la explicación correcta?",
+options:[
+  {text:"Ambas son gramaticales porque los adjetivos calificativos suelen funcionar como atributo.",correct:false,expl:"No todos los adjetivos son compatibles con «estar»."},
+  {text:"La 2 es agramatical porque «inteligente» expresa cualidad permanente e «estar» describe estados transitorios.",correct:true,expl:"«Estar» selecciona adjetivos que expresan estados episódicos o cambios. «Inteligente» es una propiedad estable, incompatible con «estar»."},
+  {text:"La 2 es agramatical porque «inteligente» es adjetivo relacional.",correct:false,expl:"«Inteligente» es calificativo, no relacional."},
+  {text:"La 2 es agramatical porque «estar» no admite atributos en grado positivo.",correct:false,expl:"«Estar» admite atributos en grado positivo ('está contenta', 'está cansada')."},
+],
+explanation:"La distinción ser/estar con adjetivos: «ser» → propiedades estables/inherentes. «Estar» → estados episódicos, transitorios o resultantes de un cambio. «Inteligente» expresa cualidad permanente → incompatible con «estar»."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «Juan ha roto» (49)",
+prompt:"«*Juan ha roto» / «Juan y Ana han roto». ¿Cuál es la explicación correcta?",
+options:[
+  {text:"Ambas son agramaticales porque falta el complemento directo.",correct:false,expl:"La 2 es gramatical en contexto."},
+  {text:"La 2 es gramatical porque el contexto permite inferir el significado.",correct:false,expl:"El contexto no es la razón; la razón es sintáctica."},
+  {text:"La 2 es gramatical porque con sujeto plural «romper» adquiere lectura recíproca y no necesita CD.",correct:true,expl:"Con sujeto plural, «romper» se interpreta como recíproco ('el uno con el otro'): Juan y Ana han roto [su relación mutuamente]. La lectura recíproca satura el argumento interno."},
+  {text:"La 2 es gramatical porque «romper» es verbo transitivo y requiere argumento interno.",correct:false,expl:"Precisamente porque es transitivo, el argumento se satura por la lectura recíproca del sujeto plural."},
+],
+explanation:"Con sujeto singular, «romper» exige CD explícito (*Juan ha roto). Con sujeto plural, la lectura recíproca ('el uno con el otro') satura el argumento interno: «Juan y Ana han roto» = 'han roto su relación mutuamente'."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «qué» vs. «que» (50)",
+prompt:"«Piensan que es normal» / «Piensan qué es normal». ¿Cuál describe correctamente el contraste?",
+options:[
+  {text:"En la 2, «qué» es conjunción que introduce una subordinada sustantiva.",correct:false,expl:"«Qué» tónico no es conjunción sino pronombre interrogativo."},
+  {text:"En la 2, «qué» es un pronombre en función de sujeto.",correct:false,expl:"No es sujeto de la subordinada; es pronombre interrogativo en función de atributo o CD dentro de la subordinada."},
+  {text:"En la 1, el «que» átono introduce una subordinada declarativa (CD); en la 2, «qué» tónico introduce una interrogativa indirecta (también CD).",correct:true,expl:"En la 1 'que' es conjunción completiva → CD declarativo. En la 2 'qué' es pronombre interrogativo → CD interrogativo indirecto."},
+  {text:"En ambas el elemento subordinante es una conjunción.",correct:false,expl:"En la 2, «qué» es pronombre interrogativo, no conjunción."},
+],
+explanation:"1: «que» átono = conjunción completiva → subordinada sustantiva declarativa (CD). 2: «qué» tónico = pronombre interrogativo → subordinada sustantiva interrogativa indirecta (CD). Mismo función (CD) pero diferente tipo de subordinada."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «se consume» / «me consume» (51)",
+prompt:"«Este amor se consume» / «Este amor me consume». ¿Cuál describe correctamente el contraste?",
+options:[
+  {text:"El verbo de la 1 es transitivo.",correct:false,expl:"En la 1, «consumir» es pronominal (intransitivo); en la 2, sí es transitivo."},
+  {text:"El verbo de la 2 es pronominal.",correct:false,expl:"En la 2, «consumir» es transitivo: tiene CD implícito ('me' = CD, el sujeto activo es 'este amor')."},
+  {text:"El verbo de la 1 es pronominal (se consume = se agota a sí mismo).",correct:true,expl:"En la 1, 'se consume' es pronominal intransitivo: el amor se agota por sí solo. En la 2, 'me consume' es transitivo: el amor me devora ('me' = CD)."},
+  {text:"En ambas «consumir» es transitivo.",correct:false,expl:"En la 1 es pronominal/intransitivo; en la 2 es transitivo."},
+],
+explanation:"1: «se consume» → pronominal intransitivo (el amor se agota). 2: «me consume» → transitivo ('me' = CD; el amor consume al hablante). El «se» pronominal cambia la estructura argumental del verbo."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «lógicamente» (52)",
+prompt:"«Respondió a su hermana lógicamente» / «Respondió a su hermana, lógicamente». ¿Cuál describe el contraste?",
+options:[
+  {text:"La coma se puede poner o quitar sin cambio de significado.",correct:false,expl:"La coma cambia el alcance semántico de «lógicamente»."},
+  {text:"En la 1, «lógicamente» es adjunto oracional (actitud del hablante).",correct:false,expl:"Sin coma, es adjunto verbal (describe el modo de responder)."},
+  {text:"En la 1, «lógicamente» es adjunto verbal (describe el modo de responder); en la 2, es adjunto oracional (actitud del hablante ante lo enunciado).",correct:true,expl:"Sin coma: 'respondió lógicamente' = de forma lógica (modo). Con coma: 'lógicamente, respondió' = 'como era lógico que ocurriera' (evaluación del hablante)."},
+  {text:"En 1 y 2, «lógicamente» afecta a toda la oración.",correct:false,expl:"Solo en la 2 (con coma) afecta a toda la oración como modificador oracional."},
+],
+explanation:"Sin coma: «lógicamente» es adjunto verbal de modo (describe cómo respondió). Con coma: es adjunto oracional o modificador de modalidad (expresa la actitud del hablante: 'como era de esperar')."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «sabe rara/raro» (53)",
+prompt:"«La carne sabe rara» / «La carne sabe raro». ¿Cuál describe correctamente el contraste?",
+options:[
+  {text:"En la 1 hay complemento predicativo.",correct:true,expl:"'Rara' concuerda en género y número con 'la carne' (femenino singular): es predicativo del sujeto con verbo pseudocopulativo 'saber'."},
+  {text:"En la 2 hay complemento predicativo.",correct:false,expl:"'Raro' no concuerda con 'la carne'; funciona como adverbio de modo (circunstancial)."},
+  {text:"En la 1 hay circunstancial.",correct:false,expl:"'Rara' concuerda con el sujeto; es predicativo, no circunstancial."},
+  {text:"En ambas hay circunstancial.",correct:false,expl:"Solo en la 2 'raro' funciona como adverbio/circunstancial."},
+],
+explanation:"'Rara' (fem.) concuerda con 'la carne' → PREDICATIVO del sujeto. 'Raro' (neutro/adverbial) no concuerda → CIRCUNSTANCIAL de modo. La concordancia del adjetivo determina su función."},
+
+{block:1,type:"sent-mcq",meta:"Par mínimo · «se detuvo al ladrón» (54)",
+prompt:"«Se detuvo al ladrón» / «Se detuvo el ladrón». ¿Cuál describe correctamente el contraste?",
+options:[
+  {text:"En la 2 hay sujeto explícito.",correct:true,expl:"'El ladrón' es sujeto paciente (se detuvo a sí mismo / fue detenido). 'Se' es pronominal o pasiva refleja."},
+  {text:"En la 1 hay sujeto tácito.",correct:false,expl:"En la 1, la oración es impersonal con 'se': el CD de persona 'al ladrón' lleva preposición 'a'. No hay sujeto."},
+  {text:"En la 2 hay CD.",correct:false,expl:"En la 2, 'el ladrón' es sujeto, no CD."},
+  {text:"En la 1 hay CI.",correct:false,expl:"'Al ladrón' es CD (persona) en la impersonal con 'se', no CI."},
+],
+explanation:"1: Impersonal con 'se' + CD de persona ('al ladrón', marcado con 'a'). No hay sujeto. 2: 'El ladrón' es sujeto de 'detenerse' (pronominal) o sujeto paciente (pasiva refleja). La preposición 'a' distingue CD de sujeto."},
+
+
+// ── BLOQUE 8: Comprensión lectora ─────────────────────────────────────────
+
+// ── TEXTO 1: Irene Vallejo — Cleopatra y Marco Antonio ──────────────────
+{block:8,type:"cl-text",meta:"Texto 1 · Irene Vallejo",
+text:"«La leyenda de Alejandría no dejó de crecer. Dos siglos después de que se escribiera el diálogo de Gilide y la chica tentada, Alejandría fue el escenario de uno de los grandes amores más eróticos de todos los tiempos: la historia de amor de Cleopatra y Marco Antonio.\n\nRoma, que para entonces se había convertido en el centro del mayor imperio mediterráneo, era todavía un laberinto de calles tortuosas, oscuras y embarradas cuando Marco Antonio desembarcó por primera vez en Alejandría. De pronto, se vio transportado a una ciudad embriagadora cuyos palacios, templos, amplias avenidas y monumentos irradiaban grandeza. Los romanos se sentían seguros de su poder militar y dueños del futuro, pero no podían competir con la seducción de un pasado dorado y del lujo decadente. Con una mezcla de excitación, orgullo y cálculos tácticos, el poderoso general y la última reina de Egipto construyeron una alianza política y sexual que escandalizó a los romanos tradicionales.\n\nAl igual que su ciudad, Cleopatra encarna esa peculiar fusión de cultura y sensualidad alejandrina. Dice Plutarco que en realidad Cleopatra no era una gran belleza. La gente no se paraba en seco a mirarla por la calle. Pero a cambio rebosaba atractivo, inteligencia y labia. El timbre de su voz poseía tal dulzura que dejaba clavado un aguijón en todo aquel que la escuchara. Y su lengua se acomodaba al idioma que quisiese hablar, un instrumento musical de muchas cuerdas. Era capaz de hablar sin intérpretes con etíopes, hebreos, árabes, sirios, medos y partos. Astuta, bien informada, ganó varios asaltos en el combate por el poder. Su problema es que solo han hablado de ella desde el bando enemigo.\n\nCuando Marco Antonio quiso deslumbrar a Cleopatra con un gran regalo, eligió uno que no podría desdeñar: puso a sus pies doscientos mil volúmenes para la Gran Biblioteca. En Alejandría, los libros eran combustible para las pasiones.»",
+author:"Irene Vallejo, El infinito en un junco (2000)"},
+
+{block:8,type:"mcq",meta:"Texto 1 · P1 — Idea principal",
+prompt:"¿Cuál es la idea principal del texto?",
+options:[
+  {text:"La descripción de Roma como ciudad en contraste con Alejandría.",correct:false},
+  {text:"La historia de amor entre Cleopatra y Marco Antonio en Alejandría.",correct:true},
+  {text:"La importancia de la Biblioteca de Alejandría y cómo se gestó.",correct:false},
+  {text:"La política expansionista del Imperio romano.",correct:false},
+],
+explanation:"El texto gira en torno a la relación entre Cleopatra y Marco Antonio como símbolo de la fascinación cultural y política de Alejandría. Los otros elementos (Roma, la Biblioteca) son ideas secundarias."},
+
+{block:8,type:"open",meta:"Texto 1 · P2 — Resumen",
+prompt:"Resume el texto en tres frases, diferenciando la idea principal de las ideas secundarias.",
+rubric:"Idea principal: relación entre Cleopatra y Marco Antonio en Alejandría (alianza política y amorosa). Idea secundaria 1: contraste Roma/Alejandría y poder de seducción cultural de Cleopatra. Idea secundaria 2: importancia simbólica de los libros (regalo de 200.000 volúmenes). Valorar distinción clara de los tres niveles.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 1 · P3 — Esquema",
+prompt:"Completa un esquema con tesis, ideas secundarias y conclusión del texto.",
+rubric:"Tesis: Alejandría y Cleopatra representan una combinación de poder, cultura y seducción. Ideas secundarias: contraste Roma/Alejandría; alianza política y amorosa; rasgos de Cleopatra (inteligencia, carisma, dominio de lenguas). Conclusión: en Alejandría el verdadero valor reside en la cultura y el conocimiento (libros como combustible de las pasiones).",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 1 · P4 — Modalidad textual",
+prompt:"Indica la modalidad textual predominante en el texto y justifica tu respuesta con un ejemplo.",
+rubric:"Predomina la modalidad narrativa ('Marco Antonio desembarcó por primera vez en Alejandría') con elementos descriptivos ('una ciudad embriagadora cuyos palacios irradiaban grandeza'). Valorar que se identifique correctamente la modalidad y se aporte un ejemplo textual.",
+modelSolution:null},
+
+{block:8,type:"mcq",meta:"Texto 1 · P5 — Inferencia",
+prompt:"La afirmación «los romanos no podían competir con la seducción de un pasado dorado» implica:",
+options:[
+  {text:"Que Roma tenía más poder militar y no se preocupaba por el urbanismo.",correct:false},
+  {text:"Que Alejandría resultaba culturalmente más atractiva.",correct:true},
+  {text:"Que Roma era más rica y por eso podía realizar costosos regalos.",correct:false},
+  {text:"Que Egipto dominaba Roma y pudo ser la capital del mundo.",correct:false},
+],
+explanation:"El fragmento contrasta el poderío militar romano con la seducción cultural de Alejandría. Los romanos eran poderosos militarmente pero no podían resistir la atracción de un pasado glorioso y un lujo refinado."},
+
+{block:8,type:"open",meta:"Texto 1 · P6 — Conclusión implícita",
+prompt:"Explica la conclusión implícita del fragmento: «Su problema es que solo han hablado de ella desde el bando enemigo».",
+rubric:"Se sugiere que la imagen histórica de Cleopatra puede ser parcial o distorsionada, ya que ha sido construida por sus adversarios. Su figura podría haber sido más positiva o compleja de lo que transmiten las fuentes. Valorar que se identifique la parcialidad historiográfica y se argumente con el texto.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 1 · P7 — Análisis crítico",
+prompt:"¿Qué relación establece el autor entre poder político y seducción en la figura de Cleopatra? Fundamenta tu respuesta con citas del texto.",
+rubric:"Cleopatra combina poder político con seducción personal e intelectual: 'alianza política y sexual', 'rebosaba atractivo, inteligencia y labia', capacidad lingüística. Su influencia no se basa solo en el poder. Valorar que se citen pasajes concretos y se establezca la relación de forma argumentada.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 1 · P8 — Expresiones subjetivas",
+prompt:"Localiza dos expresiones subjetivas del texto y explica su efecto.",
+rubric:"'Ciudad embriagadora': sugiere atracción intensa y sensorial; presenta Alejandría como espacio fascinante más allá de la descripción objetiva. 'Lujo decadente': valoración ambigua que combina admiración con connotación negativa de exceso. Valorar que se identifique el recurso, se explique su carga valorativa y se vincule al mensaje.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 1 · P9 — Recurso expresivo",
+prompt:"Explica cómo la metáfora «un instrumento musical de muchas cuerdas» contribuye a la idea central del texto.",
+rubric:"Metáfora que compara la capacidad lingüística de Cleopatra con un instrumento de múltiples registros. Destaca su habilidad para hablar varias lenguas. Refuerza la idea de que Cleopatra combinaba poder político con inteligencia y seducción cultural. También evoca placer y sensorialidad, coherentes con el tono del texto.",
+modelSolution:null},
+
+{block:8,type:"mcq",meta:"Texto 1 · P10 — Léxico",
+prompt:"Selecciona el antónimo de «embriagadora» en el contexto del texto:",
+options:[
+  {text:"Atractiva",correct:false},
+  {text:"Fascinante",correct:false},
+  {text:"Insípida",correct:true},
+  {text:"Seductora",correct:false},
+],
+explanation:"En el contexto, 'embriagadora' significa que produce atracción intensa y sensorial. Su antónimo es 'insípida': sin gracia, sin atractivo, incapaz de despertar interés o emoción."},
+
+// ── TEXTO 2: Rosa Montero — Los malentendidos ────────────────────────────
+{block:8,type:"cl-text",meta:"Texto 2 · Rosa Montero",
+text:"«A veces me pregunto si los humanos nos entendemos de verdad. O si en realidad vivimos en un espejismo de falso diálogo. Nos inventamos al otro y, cuando hablamos, creemos que nos estamos refiriendo a las mismas cosas, pero en realidad cada uno es una isla. Entendemos a partir de lo que hemos vivido, de lo que nos duele, de todos nuestros miedos y deseos y prejuicios y necesidades. Por eso no puede haber dos escuchas iguales.\n\nHace unas semanas ganó el Premio Biblioteca Breve la mexicana Elma Correa. Escribí un texto en mis redes publicitando su libro, dándole la enhorabuena. Al principio dije que la pobre Elma había tenido la mala suerte del vendaval, y media docena de personas comentaron que la estaba «pobreando», como si fuera un trato ofensivo. Porque las palabras, que deberían ser nuestro lazo de unión, a menudo separan. Y hasta torturan y matan, como explica el filólogo Victor Klemperer en La lengua del Tercer Reich.\n\nHace muchos años publiqué un artículo criticando a una piscina que impidió la entrada a un hombre negro. La noticia era tan demencial que escribí un texto burlesco llevando el racismo hasta la estratosfera. Poco después recibí una carta en la que una persona de color se dolía de mis palabras. ¡Había tomado mi delirante artículo en serio! Como era una carta anónima, nunca pude escribirle, explicarme, disculparme. Guardo ese sangrante malentendido clavado en el corazón. Los humanos somos icebergs y la parte sumergida es inalcanzable. Qué clamorosa sensación de soledad produce la incomprensión.»",
+author:"Rosa Montero, Los malentendidos, El País (2026)"},
+
+{block:8,type:"mcq",meta:"Texto 2 · P1 — Idea principal",
+prompt:"¿Cuál es la idea principal del texto?",
+options:[
+  {text:"La importancia de la literatura contemporánea.",correct:false},
+  {text:"La dificultad de la comunicación humana y los malentendidos.",correct:true},
+  {text:"La crítica a los premios literarios como único medio de promoción.",correct:false},
+  {text:"La descripción de experiencias personales aisladas.",correct:false},
+],
+explanation:"El texto reflexiona sobre la incomunicación humana y cómo los malentendidos surgen porque cada persona interpreta el lenguaje desde su propia experiencia. Los ejemplos personales ilustran esa idea central."},
+
+{block:8,type:"open",meta:"Texto 2 · P2 — Resumen",
+prompt:"Resume el texto en tres frases, diferenciando la idea principal de las ideas secundarias.",
+rubric:"Idea principal: la comunicación humana está llena de malentendidos que dificultan la comprensión real. Ideas secundarias: los prejuicios y experiencias personales influyen en la interpretación del lenguaje; ejemplos concretos (el 'pobreando' y el artículo sobre racismo) ilustran cómo las palabras pueden malinterpretarse. Valorar la distinción clara entre los niveles.",
+modelSolution:null},
+
+{block:8,type:"mcq",meta:"Texto 2 · P3 — Subtema",
+prompt:"Señala el subtema abordado en el segundo párrafo del texto:",
+options:[
+  {text:"La soledad humana.",correct:false},
+  {text:"La celebración de premios literarios.",correct:false},
+  {text:"Un malentendido en redes sociales.",correct:true},
+  {text:"La crítica al racismo.",correct:false},
+],
+explanation:"En el segundo párrafo la autora narra cómo su mensaje de apoyo a Elma Correa fue malinterpretado: la palabra 'pobre' fue entendida como insulto. Es un ejemplo concreto de malentendido comunicativo en redes."},
+
+{block:8,type:"open",meta:"Texto 2 · P4 — Esquema",
+prompt:"Completa un esquema con tesis, ideas secundarias y conclusión del texto.",
+rubric:"Tesis: la comunicación humana es imperfecta y genera malentendidos inevitables. Ideas secundarias: interpretación subjetiva del lenguaje según la experiencia personal; malentendido en redes con Elma Correa; artículo sobre racismo malinterpretado. Conclusión: la incomprensión genera soledad y distancia ('clamorosa sensación de soledad').",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 2 · P5 — Ideas secundarias y tesis",
+prompt:"Explica cómo se relacionan las ideas secundarias con la tesis principal del texto.",
+rubric:"Las ideas secundarias refuerzan la tesis mediante ejemplos concretos en los que la comunicación falla. Muestran cómo las interpretaciones personales, condicionadas por la experiencia y los prejuicios, generan malentendidos reales. Valorar que se explique la función argumentativa de los ejemplos y se vincule cada uno a la tesis.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 2 · P6 — Estructura textual",
+prompt:"Analiza cómo la estructura textual elegida facilita la comprensión del contenido.",
+rubric:"Estructura argumentativo-expositiva con apoyo en narrativa personal. La autora parte de una reflexión general abstracta y luego la ilustra con situaciones concretas. Esta combinación facilita la comprensión porque ancla las ideas abstractas en experiencias reconocibles. Valorar que se identifique la modalidad y se justifique su efecto.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 2 · P7 — Conclusión implícita",
+prompt:"Explica la conclusión implícita del fragmento: «por eso no puede haber dos escuchas iguales».",
+rubric:"Cada persona interpreta los mensajes según su experiencia vital, sus emociones, miedos y prejuicios. Por tanto, nunca hay comprensión idéntica entre dos individuos aunque usen las mismas palabras. Valorar que se explique la subjetividad interpretativa y se vincule con el argumento del texto.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 2 · P8 — Lenguaje y malentendidos",
+prompt:"Comenta de manera fundamentada dos ideas que la autora relacione con el concepto de lenguaje y malentendidos.",
+rubric:"1) Las palabras deberían unir pero a menudo separan e incluso hacen daño ('torturan y matan'): el 'pobreando' muestra cómo una expresión afectuosa puede interpretarse como ofensiva. 2) Los humanos somos 'icebergs': la experiencia oculta de cada uno determina cómo se decodifica el lenguaje, haciendo imposible la comprensión plena. Valorar argumentación con citas.",
+modelSolution:null},
+
+{block:8,type:"mcq",meta:"Texto 2 · P9 — Propósito",
+prompt:"El propósito principal de la autora es:",
+options:[
+  {text:"Informar sobre premios literarios.",correct:false},
+  {text:"Reflexionar sobre la incomunicación humana.",correct:true},
+  {text:"Narrar una historia personal.",correct:false},
+  {text:"Criticar a los lectores.",correct:false},
+],
+explanation:"Aunque la autora se apoya en anécdotas personales, su propósito es reflexionar sobre un fenómeno universal: la dificultad de comunicarnos de verdad y los malentendidos que genera la interpretación subjetiva del lenguaje."},
+
+{block:8,type:"open",meta:"Texto 2 · P10 — Expresiones subjetivas",
+prompt:"Localiza dos expresiones subjetivas del texto y explica su efecto.",
+rubric:"'Oscuro corazón de los humanos': metáfora sobre la complejidad e impenetrabilidad de la naturaleza humana. 'Clamorosa sensación de soledad': paradoja (la soledad es silenciosa pero se presenta como clamorosa) y sinestesia (lo clamoroso es auditivo, la soledad es emocional). Ambas figuras intensifican la idea de incomunicación y dan al texto carga expresiva y subjetiva.",
+modelSolution:null},
+
+// ── TEXTO 3: Jesús G. Maestro — Literatura infantil ──────────────────────
+{block:8,type:"cl-text",meta:"Texto 3 · Jesús G. Maestro",
+text:"«Los niños realmente inteligentes no leen libros durante su infancia: los protagonizan. La imagen de un niño lector es una interpretación con frecuencia ilusa y siempre retrospectiva de adultos idealizados por una autocomplacencia en sus creencias y pretensiones pedagógicas. Insisto en que los niños inteligentes no leen libros, porque no lo necesitan. Su imaginación es muy superior a la perturbada, y con frecuencia también atrofiada, imaginación de los adultos que los escriben.\n\nDe «literatura infantil» solo cabe hablar en términos editoriales y comerciales. Lo cierto es que no conviene confundir la denominada comercialmente «literatura infantil» con las interpretaciones infantiles de la literatura. Porque la literatura, si es «infantil», no es literatura, y si es literatura, no podrá interpretarse como tal por un niño, desde el momento en que el hecho literario habrá de objetivar formalmente un complejo sistema de ideas ilegible e inasequible para una inteligencia infantil.\n\nEn el mejor de los casos, la llamada «literatura infantil» no es sino un discurso asequible a una inteligencia propia de un niño, pero no de un adulto. La literatura se reduce así a un hecho que se desvanece en la medida en que se hace comprensible, cuando no resulta ser, en el peor de ellos, una historieta lamentablemente concebida y, si cabe, aún peor escrita.»",
+author:"Jesús G. Maestro, Una filosofía para sobrevivir en el siglo XXI (2025)"},
+
+{block:8,type:"open",meta:"Texto 3 · P1 — Tema central",
+prompt:"Explica el tema central del texto y la relevancia de la información seleccionada.",
+rubric:"Tema central: crítica al concepto de 'literatura infantil' y a la visión adultocéntrica de la infancia. La información es relevante porque cuestiona una idea ampliamente aceptada, pone en duda el valor literario de estos productos y muestra su vinculación con intereses comerciales y pedagógicos.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 3 · P2 — Esquema",
+prompt:"Completa un esquema con tesis, ideas secundarias y conclusión del texto.",
+rubric:"Tesis: la 'literatura infantil' es una construcción artificial que desvirtúa el hecho literario. Idea secundaria 1: los niños no necesitan leer porque su imaginación es autónoma y superior. Idea secundaria 2: la 'literatura infantil' responde a intereses comerciales y simplifica la literatura. Conclusión: esta literatura reduce el valor del hecho literario y puede ser de baja calidad ('una historieta lamentablemente concebida').",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 3 · P3 — Estructura",
+prompt:"Analiza cómo la estructura elegida facilita la comprensión del contenido.",
+rubric:"Estructura deductiva: la tesis se formula desde el inicio y se desarrolla mediante argumentos. El autor amplía la idea explicando la superioridad de la imaginación infantil, luego introduce la dimensión comercial y concluye con valoración negativa. Esta organización facilita la comprensión porque el lector conoce desde el principio la postura del autor.",
+modelSolution:null},
+
+{block:8,type:"mcq",meta:"Texto 3 · P4 — Implicación",
+prompt:"La afirmación «los niños no leen libros, porque no lo necesitan» implica:",
+options:[
+  {text:"Que los niños no tienen acceso a libros.",correct:false},
+  {text:"Que la lectura es perjudicial para los niños.",correct:false},
+  {text:"Que la imaginación infantil es suficiente para su desarrollo.",correct:true},
+  {text:"Que los adultos deben obligarlos a leer.",correct:false},
+],
+explanation:"El autor argumenta que la imaginación de los niños es autónoma y superior a la de los adultos. No necesitan la literatura para desarrollarse: crean sus propios mundos. La afirmación no implica falta de acceso ni que la lectura sea dañina."},
+
+{block:8,type:"open",meta:"Texto 3 · P5 — Tono",
+prompt:"Describe el tono del texto y justifica tu respuesta con ejemplos concretos.",
+rubric:"Tono crítico y provocador: afirmaciones polémicas ('los niños realmente inteligentes no leen libros') y valoraciones negativas ('una historieta lamentablemente concebida'). También hay ironía al referirse a la 'literatura infantil' siempre entre comillas, cuestionando el término mismo.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 3 · P6 — Léxico",
+prompt:"Sustituye la palabra «atrofiada» por un sinónimo adecuado que mantenga el mismo registro formal.",
+rubric:"Sinónimos válidos: deteriorada, anquilosada, disminuida, mermada, empobrecida, limitada. Valorar que el sinónimo mantenga el sentido de reducción o degradación de una capacidad y el registro culto del texto.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 3 · P7 — Argumento y contraargumento",
+prompt:"Identifica un argumento y un contraargumento en el texto.",
+rubric:"Argumento: los niños no necesitan leer porque su imaginación es autónoma y superior ('los niños inteligentes no leen libros, porque no lo necesitan'). Contraargumento implícito: la concepción común de que la lectura es fundamental para el desarrollo infantil, promovida por el sistema educativo y editorial. El autor la considera una construcción interesada y poco realista.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 3 · P8 — Recursos lingüísticos",
+prompt:"Analiza cómo los recursos lingüísticos refuerzan la coherencia y claridad del texto.",
+rubric:"Conectores ('porque', 'así', 'en el mejor de los casos') organizan el discurso con relaciones lógicas. Repetición léxica ('literatura', 'infantil', 'imaginación') garantiza cohesión temática. Paralelismos y estructuras binarias ('si es infantil, no es literatura, y si es literatura...') facilitan el razonamiento. Comillas en 'literatura infantil' marcan la distancia crítica del autor.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 3 · P9 — Metáfora",
+prompt:"Analiza el valor connotativo de la metáfora «la literatura se desvanece» y su efecto en el mensaje.",
+rubric:"'Desvanece' tiene valor connotativo negativo: sugiere pérdida, debilitamiento, desaparición de la esencia literaria. Al simplificarse para adaptarse a un público infantil, la literatura pierde complejidad y profundidad. El efecto es reforzar la crítica central y presentar la 'literatura infantil' como una forma degradada del hecho literario.",
+modelSolution:null},
+
+{block:8,type:"open",meta:"Texto 3 · P10 — Relación entre ideas",
+prompt:"¿Qué relación establece el autor entre la imaginación infantil y la literatura dirigida a los niños? Fundamenta tu respuesta.",
+rubric:"Relación de oposición: la imaginación de los niños es autónoma y superior, mientras que la 'literatura infantil' es una construcción artificial que simplifica y empobrece el hecho literario. Esta oposición refuerza la idea de que la creatividad natural del niño no solo no depende de la literatura, sino que puede verse limitada por ella.",
+modelSolution:null},
+
+];
+
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let curB=0,curI=0,answered={},correctCount=0,fillSel={},viewMode='single';
+
+// ── PERSISTENCIA (localStorage) ──────────────────────────
+const STORAGE_KEY='prepau_progress_v1';
+
+function saveProgress(){
+  try{
+    // Save answered, correctCount, fillSel, and per-exercise data
+    const exData={};
+    EX.forEach((ex,i)=>{
+      if(ex._ans||ex._fb||ex._chosenIdx!==undefined||ex._listExpanded){
+        exData[i]={
+          ans:ex._ans||null,
+          fb:ex._fb||null,
+          chosenIdx:ex._chosenIdx!==undefined?ex._chosenIdx:null,
+          listExpanded:ex._listExpanded||false,
+          modelSolution:ex.modelSolution||null,
+        };
+      }
+    });
+    localStorage.setItem(STORAGE_KEY,JSON.stringify({
+      answered,correctCount,fillSel,viewMode,exData
+    }));
+  }catch(e){}
+}
+
+function loadProgress(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    const data=JSON.parse(raw);
+    if(data.answered)   answered=data.answered;
+    if(data.correctCount!==undefined) correctCount=data.correctCount;
+    if(data.fillSel)    fillSel=data.fillSel;
+    if(data.viewMode)   viewMode=data.viewMode;
+    if(data.exData){
+      Object.entries(data.exData).forEach(([i,d])=>{
+        const ex=EX[+i];
+        if(!ex) return;
+        if(d.ans)            ex._ans=d.ans;
+        if(d.fb)             ex._fb=d.fb;
+        if(d.chosenIdx!==null) ex._chosenIdx=d.chosenIdx;
+        if(d.listExpanded)   ex._listExpanded=d.listExpanded;
+      });
+    }
+  }catch(e){}
+}
+
+function resetAllProgress(){
+  if(!confirm('¿Seguro que quieres borrar todo tu progreso? Esta acción no se puede deshacer.')) return;
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+  answered={};correctCount=0;fillSel={};viewMode='single';
+  EX.forEach(ex=>{ ex._ans=null;ex._fb=null;ex._chosenIdx=undefined;ex._listExpanded=false; });
+  rHdr();rEx();updStats();saveProgress();
+}
+
+// ══════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════
+const bExs=()=>EX.filter(e=>e.block===curB);
+const ek=e=>EX.indexOf(e);
+
+// ══════════════════════════════════════════
+// SIDEBAR / NAV
+// ══════════════════════════════════════════
+function buildNav(){
+  const c=document.getElementById('nav-c');c.innerHTML='';
+  BLOCKS.forEach((b,i)=>{
+    const bt=document.createElement('button');
+    bt.className='nb'+(i===0?' active':'');bt.id='tab-'+i;
+    bt.innerHTML=`<span class="dot"></span>${b.title}<span class="cnt" id="cnt-${i}">0</span>`;
+    bt.onclick=()=>swB(i);
+    c.appendChild(bt);
+  });
+}
+function swB(b){
+  curB=b;curI=0;fillSel={};
+  document.querySelectorAll('.nb').forEach((bt,i)=>bt.classList.toggle('active',i===b));
+  rHdr();rEx();
+  if(window.innerWidth<=820)toggleSB();
+}
+function toggleSB(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('ovl').classList.toggle('open');
+}
+
+// ══════════════════════════════════════════
+// HEADER
+// ══════════════════════════════════════════
+function rHdr(){
+  const b=BLOCKS[curB];
+  document.getElementById('ph').innerHTML=`
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:5px">
+      <h1 class="pt2" style="margin-bottom:0">${b.title}</h1>
+      <div class="view-toggle">
+        <button class="vt-btn ${viewMode==='single'?'active':''}" onclick="setView('single')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          Uno a uno
+        </button>
+        <button class="vt-btn ${viewMode==='list'?'active':''}" onclick="setView('list')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Lista
+        </button>
+      </div>
+    </div>
+    <p class="pd">${b.desc}</p>`;
+}
+
+// ══════════════════════════════════════════
+// MAIN RENDER
+// ══════════════════════════════════════════
+function rEx(){
+  if(viewMode==='list') return rExList();
+  const exs=bExs();
+  if(!exs.length){document.getElementById('ea').innerHTML='<p style="color:var(--ink3)">Sin ejercicios.</p>';return;}
+  curI=Math.min(curI,exs.length-1);
+  const ex=exs[curI];const key=ek(ex);const done=!!answered[key];
+
+  let h=`<div class="ex-card"><div class="ex-meta-row"><div class="ex-meta">${ex.meta}</div>${statusBadge(key,done,ex)}</div><div class="ex-prompt">${ex.prompt}</div>`;
+  if(ex.quote) h+=`<div class="ex-quote">${ex.quote.replace(/\n/g,'<br>')}</div>`;
+
+  if(ex.type==='cl-text')      h+=bClText(ex);
+  else if(ex.type==='open')   h+=bOpen(key,ex,done);
+  else if(ex.type==='mcq'||ex.type==='vocab-mcq') h+=bMCQ(key,ex,done);
+  else if(ex.type==='sent-mcq') h+=bSentMCQ(key,ex,done);
+  else if(ex.type==='fill'||ex.type==='paronyms') h+=bFill(key,ex,done);
+  else if(ex.type==='join')   h+=bJoin(key,ex,done);
+
+  h+=`</div><div class="nr">
+    <button class="btn bg2" onclick="nav(-1)" ${curI===0?'disabled':''}>← Anterior</button>
+    <span class="ni">${curI+1} / ${exs.length}</span>
+    <button class="btn bg2" onclick="nav(1)" ${curI===exs.length-1?'disabled':''}>Siguiente →</button>
+  </div>`;
+
+  document.getElementById('ea').innerHTML=h;
+  updStats();
+
+  if(done&&(ex.type==='open'||ex.type==='join')&&!ex._fb){
+    const el=document.getElementById('fb-'+key);
+    if(el) getFB(key,ex,ex._ans,el);
+  }
+}
+
+function statusBadge(key,done,ex){
+  if(ex.type==='cl-text') return '';
+  if(!done) return '<span class="lv-status pending">Pendiente</span>';
+  // For MCQ/sent-mcq we know if correct
+  if(ex.type==='mcq'||ex.type==='vocab-mcq'||ex.type==='sent-mcq'){
+    const wasCorrect=ex._chosenIdx!==undefined?ex.options[ex._chosenIdx].correct
+      : ex.options.some((o,i)=>o.correct&&fillSel[key+'-0']===undefined);
+    // Simplify: just show done
+    return '<span class="lv-status done-ok">✓ Hecho</span>';
+  }
+  if(ex.type==='fill'||ex.type==='paronyms'){
+    const all=ex.items.every((_,i)=>fillSel[`${key}-${i}`]);
+    if(all){
+      const r=ex.items.filter((it,i)=>fillSel[`${key}-${i}`]===it.answer).length;
+      return r===ex.items.length
+        ? '<span class="lv-status done-ok">✓ Perfecto</span>'
+        : `<span class="lv-status done-no">${r}/${ex.items.length} correctos</span>`;
+    }
+  }
+  return '<span class="lv-status done-ok">✓ Enviado</span>';
+}
+
+function rExList(){
+  const exs=bExs();
+  if(!exs.length){document.getElementById('ea').innerHTML='<p style="color:var(--ink3)">Sin ejercicios.</p>';return;}
+  const ea=document.getElementById('ea');
+  ea.classList.add('list-view');
+
+  let h='';
+  exs.forEach((ex,i)=>{
+    const key=ek(ex);
+    const done=!!answered[key];
+    const expanded=ex._listExpanded||ex.type==='cl-text'||false;
+    const collapsedCls=expanded?'':'lv-collapsed';
+
+    h+=`<div class="ex-card ${collapsedCls}" id="lvc-${key}">
+      <div class="ex-meta-row">
+        <div class="ex-meta">${ex.meta}</div>
+        ${statusBadge(key,done,ex)}
+      </div>
+      <div class="ex-prompt">${ex.prompt}</div>`;
+
+    if(ex.quote) h+=`<div class="ex-quote">${ex.quote.replace(/\n/g,'<br>')}</div>`;
+
+    // Full exercise content
+    if(ex.type==='cl-text')      h+=bClText(ex);
+  else if(ex.type==='open')   h+=bOpen(key,ex,done);
+    else if(ex.type==='mcq'||ex.type==='vocab-mcq') h+=bMCQ(key,ex,done);
+    else if(ex.type==='sent-mcq') h+=bSentMCQ(key,ex,done);
+    else if(ex.type==='fill'||ex.type==='paronyms') h+=bFill(key,ex,done);
+    else if(ex.type==='join')   h+=bJoin(key,ex,done);
+
+    // Expand button (visible only when collapsed via CSS)
+    h+=`<button class="lv-expand-btn" onclick="lvExpand(${key})">
+      Ver ejercicio
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>`;
+
+    h+=`</div>`;
+  });
+
+  ea.innerHTML=h;
+  updStats();
+
+  // Trigger pending AI feedback for expanded done exercises
+  exs.forEach(ex=>{
+    const key=ek(ex);
+    const done=!!answered[key];
+    if(done&&(ex.type==='open'||ex.type==='join')&&!ex._fb&&ex._listExpanded){
+      const el=document.getElementById('fb-'+key);
+      if(el) getFB(key,ex,ex._ans,el);
+    }
+  });
+}
+
+function lvExpand(key){
+  EX[key]._listExpanded=true;
+  const card=document.getElementById('lvc-'+key);
+  if(card){
+    card.classList.remove('lv-collapsed');
+    // Trigger AI feedback if needed
+    const ex=EX[key];
+    const done=!!answered[key];
+    if(done&&(ex.type==='open'||ex.type==='join')&&!ex._fb){
+      const el=document.getElementById('fb-'+key);
+      if(el) getFB(key,ex,ex._ans,el);
+    }
+    card.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}
+
+function setView(mode){
+  // Save any open textarea before switching
+  const exs=bExs();
+  const ex=exs[curI];
+  if(ex){
+    const key=ek(ex);
+    const ta=document.getElementById('ans-'+key);
+    if(ta&&!answered[key]) ex._ans=ta.value;
+    const ji=document.getElementById('join-'+key);
+    if(ji&&!answered[key]) ex._ans=ji.value;
+  }
+  viewMode=mode;
+  // Toggle list-view class on ea
+  const ea=document.getElementById('ea');
+  if(mode==='single') ea.classList.remove('list-view');
+  rHdr();  // re-render header to update toggle button state
+  rEx();saveProgress();
+}
+
+// ── TEXTO LITERARIO (comprensión lectora) ──────────────────────────────────────────
+function bClText(ex){
+  const key=EX.indexOf(ex);
+  const collapsed=ex._textCollapsed||false;
+  const btnLabel=collapsed?'Mostrar texto ▼':'Ocultar texto ▲';
+  const bodyStyle=collapsed?'display:none':'';
+  const formatted=ex.text.replace(/\\n\\n/g,'</p><p>').replace(/\\n/g,' ');
+  return `<div class="text-card">
+    <div class="text-card-label">Texto</div>
+    <button class="text-toggle-btn" id="txt-btn-${key}" onclick="toggleText(${key})">${btnLabel}</button>
+    <div class="text-card-body" id="txt-body-${key}" style="${bodyStyle}"><p>${formatted}</p></div>
+    <div class="text-card-author">${ex.author}</div>
+  </div>`;
+}
+
+function toggleText(key){
+  const ex=EX[key];
+  ex._textCollapsed=!ex._textCollapsed;
+  const body=document.getElementById('txt-body-'+key);
+  const btn=document.getElementById('txt-btn-'+key);
+  if(ex._textCollapsed){
+    body.style.display='none';
+    btn.textContent='Mostrar texto ▼';
+  } else {
+    body.style.display='';
+    btn.textContent='Ocultar texto ▲';
+  }
+}
+
+// ── OPEN (expresión escrita / corrección) ─────────────────────────────────
+function bOpen(key,ex,done){
+  let h=`<textarea id="ans-${key}" placeholder="${ex.placeholder||''}" ${done?'readonly':''}>${ex._ans||''}</textarea>
+  <div class="btn-row">
+    <button class="btn bp" onclick="subOpen(${key})" ${done?'disabled':''}>Enviar →</button>
+    ${done?`<button class="btn bg2" onclick="resetEx(${key})">Reintentar</button>`:''}
+  </div>`;
+
+  // Solución modelo (solo en expresión escrita, block 0)
+  if(ex.block===0){
+    if(ex.modelSolution){
+      h+=`<div class="modelo-box">
+        <div class="modelo-head" onclick="toggleModelo(this)">
+          <span>Solución modelo</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="modelo-body">${ex.modelSolution}</div>
+      </div>`;
+    } else {
+      h+=`<div class="modelo-box">
+        <div class="modelo-head" style="cursor:default">
+          <span>Solución modelo</span>
+          <span style="font-size:10px;opacity:.6;font-style:italic;text-transform:none">Próximamente</span>
+        </div>
+        <div class="modelo-pending">El profesor añadirá la solución modelo próximamente.</div>
+      </div>`;
+    }
+  }
+
+  // AI feedback
+  if(done){
+    h+=`<div class="fb"><div class="fbh"><span class="fbd ${ex._fb?'':'loading'}"></span>Corrección IA</div>
+    <div class="fbb ${ex._fb?'':'loading'}" id="fb-${key}">${ex._fb||'Analizando tu respuesta...'}</div></div>`;
+  }
+  return h;
+}
+
+// ── MCQ estándar ──────────────────────────────────────────────────────────
+function bMCQ(key,ex,done){
+  let h=`<div class="ol">`;
+  ex.options.forEach((o,i)=>{
+    const c=done?(o.correct?' correct':' wrong'):'';
+    h+=`<button class="ob${c}" onclick="pickMCQ(${key},${i})" ${done?'disabled':''}>
+      <span class="ltr">${String.fromCharCode(65+i)}</span><span>${o.text}</span></button>`;
+  });
+  h+=`</div>`;
+  if(done) h+=`<div class="expl"><strong>Explicación</strong>${ex.explanation}</div>`;
+  return h;
+}
+
+// ── SENT-MCQ (oraciones como opciones) ───────────────────────────────────
+function bSentMCQ(key,ex,done){
+  let h=`<div class="ol">`;
+  ex.options.forEach((o,i)=>{
+    let cls='';
+    if(done) cls=o.correct?' correct':' wrong';
+    h+=`<button class="sent-opt${cls}" onclick="pickSentMCQ(${key},${i})" ${done?'disabled':''}>
+      <span class="ltr">${String.fromCharCode(65+i)}</span>
+      <span>${o.text}</span>
+    </button>`;
+  });
+  h+=`</div>`;
+  if(done){
+    // mostramos la explicación de la opción correcta + la que eligió si era incorrecta
+    const chosen=ex._chosenIdx!==undefined?ex._chosenIdx:-1;
+    h+=`<div class="expl"><strong>Explicación</strong>${ex.explanation}`;
+    if(chosen>=0 && !ex.options[chosen].correct){
+      h+=`<br><br><em>Por qué tu respuesta es incorrecta:</em> ${ex.options[chosen].expl}`;
+    }
+    h+=`</div>`;
+  }
+  return h;
+}
+
+// ── FILL / PARONYMS ───────────────────────────────────────────────────────
+function bFill(key,ex,done){
+  let h='';
+  ex.items.forEach((it,i)=>{
+    const ch=fillSel[`${key}-${i}`];const show=done||ch;
+    h+=`<div class="fi"><div class="fs2">${it.sentence}</div><div class="fo">`;
+    it.options.forEach(o=>{
+      let c='';if(show){c=o===it.answer?' correct':(o===ch&&o!==it.answer?' wrong':'');}
+      h+=`<button class="fo-btn${c}" onclick="pickF(${key},${i},'${o}')" ${show?'disabled':''}>${o}</button>`;
+    });
+    h+=`</div></div>`;
+  });
+  const all=ex.items.every((_,i)=>fillSel[`${key}-${i}`]);
+  if(!done) h+=`<div class="btn-row"><button class="btn bp" onclick="subFill(${key})" ${all?'':'disabled'}>Comprobar</button></div>`;
+  else{
+    const r=ex.items.filter((it,i)=>fillSel[`${key}-${i}`]===it.answer).length;
+    h+=`<div class="expl"><strong>${r}/${ex.items.length} correctos</strong>Verde = correcto · Rojo = incorrecto</div>`;
+  }
+  return h;
+}
+
+// ── JOIN ──────────────────────────────────────────────────────────────────
+function bJoin(key,ex,done){
+  let h=`<div class="ji"><div class="jp">${ex.parts.map((p,i)=>`<strong>${i===0?'A':'B'}.</strong> ${p}`).join('<br>')}</div>
+  <input class="jinput" id="join-${key}" type="text" placeholder="${ex.placeholder||''}" value="${ex._ans||''}" ${done?'readonly':''}></div>
+  <div class="btn-row">
+    <button class="btn bp" onclick="subJoin(${key})" ${done?'disabled':''}>Enviar →</button>
+    ${done?`<button class="btn bg2" onclick="resetEx(${key})">Reintentar</button>`:''}
+  </div>`;
+  if(done){
+    h+=`<div class="fb"><div class="fbh"><span class="fbd ${ex._fb?'':'loading'}"></span>Corrección IA</div>
+    <div class="fbb ${ex._fb?'':'loading'}" id="fb-${key}">${ex._fb||'Analizando tu oración...'}</div></div>`;
+  }
+  return h;
+}
+
+// ══════════════════════════════════════════
+// TOGGLE MODELO
+// ══════════════════════════════════════════
+function toggleModelo(head){
+  head.classList.toggle('open');
+  const body=head.nextElementSibling;
+  body.classList.toggle('show');
+}
+
+// ══════════════════════════════════════════
+// ACTIONS
+// ══════════════════════════════════════════
+function pickMCQ(key,idx){
+  if(answered[key]) return;
+  answered[key]=true;EX[key]._listExpanded=true;
+  if(EX[key].options[idx].correct) correctCount++;
+  rEx();updStats();saveProgress();
+}
+function pickSentMCQ(key,idx){
+  if(answered[key]) return;
+  EX[key]._chosenIdx=idx;
+  answered[key]=true;EX[key]._listExpanded=true;
+  if(EX[key].options[idx].correct) correctCount++;
+  rEx();updStats();saveProgress();
+}
+function pickF(key,ii,val){fillSel[`${key}-${ii}`]=val;EX[key]._listExpanded=true;rEx();}
+function subFill(key){
+  const ex=EX[key];
+  const r=ex.items.filter((it,i)=>fillSel[`${key}-${i}`]===it.answer).length;
+  answered[key]=true;EX[key]._listExpanded=true;if(r===ex.items.length) correctCount++;
+  rEx();updStats();saveProgress();
+}
+function subOpen(key){
+  const ta=document.getElementById('ans-'+key);
+  const v=ta?.value?.trim()||'';
+  if(v.length<10){ta.style.borderColor='#F87171';setTimeout(()=>ta.style.borderColor='',1200);return;}
+  EX[key]._ans=v;EX[key]._listExpanded=true;answered[key]=true;rEx();updStats();saveProgress();
+}
+function subJoin(key){
+  const inp=document.getElementById('join-'+key);
+  const v=inp?.value?.trim()||'';
+  if(v.length<5){inp.style.borderColor='#F87171';setTimeout(()=>inp.style.borderColor='',1200);return;}
+  EX[key]._ans=v;EX[key]._listExpanded=true;answered[key]=true;rEx();updStats();saveProgress();
+}
+function resetEx(key){
+  delete answered[key];EX[key]._fb=null;EX[key]._ans=null;EX[key]._chosenIdx=undefined;EX[key]._listExpanded=true;
+  rEx();
+}
+function nav(dir){
+  const exs=bExs();const ex=exs[curI];
+  if(ex){
+    const key=ek(ex);
+    const ta=document.getElementById('ans-'+key);if(ta&&!answered[key]) ex._ans=ta.value;
+    const ji=document.getElementById('join-'+key);if(ji&&!answered[key]) ex._ans=ji.value;
+  }
+  curI+=dir;rEx();window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ══════════════════════════════════════════
+// AI FEEDBACK
+// ══════════════════════════════════════════
+async function getFB(key,ex,answer,el){
+  try{
+    const sys=`Eres un profesor experto en PAU de Lengua Castellana para 2º de Bachillerato en España. Evalúa con rigor y pedagogía. Devuelve HTML simple (span, br, b). Estructura: 1) Valoración general en una frase. 2) Aciertos con <span style="color:#2D6A4F">✓</span>. 3) Errores con <span style="color:#991B1B">✗</span> y corrección. 4) Consejo breve. Sin markdown. Rúbrica interna: ${ex.rubric}`;
+    const msg=`Ejercicio: ${ex.prompt}\n${ex.quote?'Texto: '+ex.quote:''}\n${ex.parts?'Partes: '+ex.parts.join(' / '):''}\nRespuesta del alumno:\n${answer}`;
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:900,
+        system:sys,messages:[{role:'user',content:msg}]})});
+    const data=await r.json();
+    const text=data.content?.map(c=>c.text||'').join('')||'No se pudo obtener corrección.';
+    EX[key]._fb=text;
+    el.classList.remove('loading');el.innerHTML=text;
+    const dot=el.closest('.fb')?.querySelector('.fbd');if(dot) dot.classList.remove('loading');
+  }catch(e){el.innerHTML='Error de conexión. Inténtalo de nuevo.';}
+}
+
+// ══════════════════════════════════════════
+// STATS
+// ══════════════════════════════════════════
+function updStats(){
+  const total=EX.length,done=Object.keys(answered).length,pct=Math.round(done/total*100);
+  document.getElementById('s-done').textContent=done;
+  document.getElementById('s-ok').textContent=correctCount;
+  document.getElementById('s-pct').textContent=pct+'%';
+  document.getElementById('s-bar').style.width=pct+'%';
+  BLOCKS.forEach((_,b)=>{
+    const bx=EX.filter(e=>e.block===b);
+    const bd=bx.filter(e=>answered[ek(e)]).length;
+    const el=document.getElementById('cnt-'+b);
+    if(el){el.textContent=`${bd}/${bx.length}`;el.classList.toggle('show',bd>0);}
+  });
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+
+loadProgress();buildNav();rHdr();rEx();
+</script>
+</body>
+</html>
